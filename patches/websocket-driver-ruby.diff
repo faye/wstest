@@ -1,0 +1,10 @@
+diff --git a/Gemfile b/Gemfile
+index 851fabc..f2303c8 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -1,2 +1,5 @@
+ source 'https://rubygems.org'
+ gemspec
++
++gem 'permessage_deflate',   :path => '../permessage-deflate'
++gem 'websocket-extensions', :path => '../extensions'

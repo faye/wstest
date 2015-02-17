@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -e
+. ~/.nvm/nvm.sh
+. /usr/local/share/chruby/chruby.sh
+
+
+function run-node-client() {
+  nvm use $1
+  node examples/autobahn_client.js
+}
+
+cd .repos/node/websocket
+run-node-client 0.6
+run-node-client 0.8
+run-node-client 0.10
+run-node-client 0.12
+run-node-client iojs
+cd -
+
+
+function run-ruby-client() {
+  chruby $1
+  compile-driver
+  ruby examples/autobahn_client.rb
+}
+
+function compile-driver() {
+  cd ../driver
+  bundle exec rake compile
+  cd -
+}
+
+cd .repos/ruby/websocket
+run-ruby-client 1.9.3
+run-ruby-client 2.0.0
+run-ruby-client 2.1.5
+run-ruby-client 2.2.0
+
+chruby jruby
+compile-driver
+ruby -J-Xmx2048m --1.9 examples/autobahn_client.rb
+ruby -J-Xmx2048m --2.0 examples/autobahn_client.rb

@@ -1,0 +1,81 @@
+#!/bin/bash
+
+set -e
+
+
+mkdir -p .repos/node .repos/ruby
+
+function checkout() {
+  if [ -d $1 ]; then
+    cd $1
+    git reset --hard
+    git clean -fd
+    git pull --rebase
+  else
+    git clone git://github.com/faye/$2.git $1
+    cd $1
+  fi
+  local patch_file=../../../patches/$2.diff
+  if [ -f $patch_file ]; then
+    patch -p1 -i $patch_file
+  fi
+  cd -
+}
+
+
+cd .repos/node
+checkout  websocket           faye-websocket-node
+checkout  driver              websocket-driver-node
+checkout  extensions          websocket-extensions-node
+checkout  permessage-deflate  permessage-deflate-node
+
+function install-node-modules() {
+  cd $1
+  rm -rf node_modules
+  npm install
+  cd -
+}
+
+install-node-modules websocket
+install-node-modules driver
+install-node-modules extensions
+install-node-modules permessage-deflate
+
+cd driver/node_modules
+rm -rf permessage-deflate websocket-extensions
+ln -s ../../permessage-deflate permessage-deflate
+ln -s ../../extensions websocket-extensions
+cd -
+
+cd websocket/node_modules
+rm -rf permessage-deflate websocket-driver
+ln -s ../../permessage-deflate permessage-deflate
+ln -s ../../driver websocket-driver
+cd -
+
+
+cd ../ruby
+checkout  websocket           faye-websocket-ruby
+checkout  driver              websocket-driver-ruby
+checkout  extensions          websocket-extensions-ruby
+checkout  permessage-deflate  permessage-deflate-ruby
+
+RUBY_VERSIONS="1.9.3 2.0.0 2.1.5 2.2.0 jruby"
+. /usr/local/share/chruby/chruby.sh
+
+function install-ruby-gems() {
+  cd $1
+  rm -rf .bundle
+
+  for ruby in $RUBY_VERSIONS; do
+    chruby $ruby
+    rm -f Gemfile.lock
+    bundle install --path .bundle
+  done
+  cd -
+}
+
+install-ruby-gems websocket
+install-ruby-gems driver
+install-ruby-gems extensions
+install-ruby-gems permessage-deflate

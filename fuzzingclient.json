@@ -1,0 +1,38 @@
+
+{
+   "outdir": "./reports/servers",
+   "servers": [
+                  { "agent": "faye-websocket node-v0.6.21",          "url": "ws://127.0.0.1:4001" },
+                  { "agent": "faye-websocket node-v0.8.28",          "url": "ws://127.0.0.1:4002" },
+                  { "agent": "faye-websocket node-v0.10.36",         "url": "ws://127.0.0.1:4003" },
+                  { "agent": "faye-websocket node-v0.12.0",          "url": "ws://127.0.0.1:4004" },
+                  { "agent": "faye-websocket iojs-v1.2.0",           "url": "ws://127.0.0.1:4005" },
+
+                  { "agent": "websocket-driver node-v0.6.21",        "url": "ws://127.0.0.1:5001" },
+                  { "agent": "websocket-driver node-v0.8.28",        "url": "ws://127.0.0.1:5002" },
+                  { "agent": "websocket-driver node-v0.10.36",       "url": "ws://127.0.0.1:5003" },
+                  { "agent": "websocket-driver node-v0.12.0",        "url": "ws://127.0.0.1:5004" },
+                  { "agent": "websocket-driver iojs-v1.2.0",         "url": "ws://127.0.0.1:5005" },
+
+                  { "agent": "faye-websocket cruby-2.2.0 goliath",   "url": "ws://127.0.0.1:6001" },
+                  { "agent": "faye-websocket cruby-2.2.0 passenger", "url": "ws://127.0.0.1:6002" },
+                  { "agent": "faye-websocket cruby-2.2.0 puma",      "url": "ws://127.0.0.1:6003" },
+                  { "agent": "faye-websocket cruby-2.2.0 rainbows",  "url": "ws://127.0.0.1:6004" },
+                  { "agent": "faye-websocket cruby-2.2.0 thin",      "url": "ws://127.0.0.1:6005" },
+                  { "agent": "faye-websocket cruby-2.1.5 thin",      "url": "ws://127.0.0.1:6006" },
+                  { "agent": "faye-websocket cruby-2.0.0 thin",      "url": "ws://127.0.0.1:6007" },
+                  { "agent": "faye-websocket cruby-1.9.3 thin",      "url": "ws://127.0.0.1:6008" },
+                  { "agent": "faye-websocket jruby-2.0 puma",        "url": "ws://127.0.0.1:6009" },
+                  { "agent": "faye-websocket jruby-1.9 puma",        "url": "ws://127.0.0.1:6010" },
+
+                  { "agent": "websocket-driver cruby-1.9.3",         "url": "ws://127.0.0.1:7001" },
+                  { "agent": "websocket-driver cruby-2.0.0",         "url": "ws://127.0.0.1:7002" },
+                  { "agent": "websocket-driver cruby-2.1.5",         "url": "ws://127.0.0.1:7003" },
+                  { "agent": "websocket-driver cruby-2.2.0",         "url": "ws://127.0.0.1:7004" },
+                  { "agent": "websocket-driver jruby-1.9",           "url": "ws://127.0.0.1:7005" },
+                  { "agent": "websocket-driver jruby-2.0",           "url": "ws://127.0.0.1:7006" }
+              ],
+   "cases": ["*"],
+   "exclude-cases": [],
+   "exclude-agent-cases": {}
+}

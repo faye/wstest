@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+. ~/.nvm/nvm.sh
+
+
+cd .repos/node/websocket
+
+function run-faye-websocket-node-server() {
+  nvm use $1
+  node examples/server.js $2 &
+}
+
+run-faye-websocket-node-server  0.6   4001
+run-faye-websocket-node-server  0.8   4002
+run-faye-websocket-node-server  0.10  4003
+run-faye-websocket-node-server  0.12  4004
+run-faye-websocket-node-server  iojs  4005
+
+
+cd ../driver
+
+function run-websocket-driver-node-server() {
+  nvm use $1
+  node examples/tcp_server.js $2 &
+}
+
+run-websocket-driver-node-server  0.6   5001
+run-websocket-driver-node-server  0.8   5002
+run-websocket-driver-node-server  0.10  5003
+run-websocket-driver-node-server  0.12  5004
+run-websocket-driver-node-server  iojs  5005
