@@ -35,14 +35,14 @@ pip install -r requirements.txt
 To update all the WebSocket modules from source and set up their dependencies:
 
 ```
-./script/update-code
+./scripts/update-code
 ```
 
 To run the server tests:
 
 ```
-./script/node-servers
-./script/ruby-servers
+./scripts/node-servers
+./scripts/ruby-servers
 wstest -m fuzzingclient
 killall node ruby java
 ```
@@ -51,5 +51,5 @@ To run the client tests:
 
 ```
 wstest -m fuzzingserver &
-./script/run-clients
+./scripts/run-clients
 ```
