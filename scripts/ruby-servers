@@ -18,9 +18,9 @@ function compile-driver() {
   cd -
 }
 
-run-faye-websocket-ruby-server  2.2.0 puma      6003
-run-faye-websocket-ruby-server  2.2.0 rainbows  6004
-run-faye-websocket-ruby-server  2.2.0 thin      6005
+run-faye-websocket-ruby-server  2.2.1 puma      6003
+run-faye-websocket-ruby-server  2.2.1 rainbows  6004
+run-faye-websocket-ruby-server  2.2.1 thin      6005
 
 ruby examples/server.rb 6001 '' goliath -svp 6001 &
 
@@ -49,7 +49,7 @@ function run-websocket-driver-ruby-server() {
 run-websocket-driver-ruby-server  1.9.3 7001
 run-websocket-driver-ruby-server  2.0.0 7002
 run-websocket-driver-ruby-server  2.1.5 7003
-run-websocket-driver-ruby-server  2.2.0 7004
+run-websocket-driver-ruby-server  2.2.1 7004
 
 chruby jruby
 bundle exec rake compile
