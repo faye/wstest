@@ -4,15 +4,15 @@
    "servers": [
                   { "agent": "faye-websocket node-v0.6.21",          "url": "ws://127.0.0.1:4001" },
                   { "agent": "faye-websocket node-v0.8.28",          "url": "ws://127.0.0.1:4002" },
-                  { "agent": "faye-websocket node-v0.10.36",         "url": "ws://127.0.0.1:4003" },
-                  { "agent": "faye-websocket node-v0.12.0",          "url": "ws://127.0.0.1:4004" },
-                  { "agent": "faye-websocket iojs-v1.4.3",           "url": "ws://127.0.0.1:4005" },
+                  { "agent": "faye-websocket node-v0.10.38",         "url": "ws://127.0.0.1:4003" },
+                  { "agent": "faye-websocket node-v0.12.2",          "url": "ws://127.0.0.1:4004" },
+                  { "agent": "faye-websocket iojs-v1.6.4",           "url": "ws://127.0.0.1:4005" },
 
                   { "agent": "websocket-driver node-v0.6.21",        "url": "ws://127.0.0.1:5001" },
                   { "agent": "websocket-driver node-v0.8.28",        "url": "ws://127.0.0.1:5002" },
-                  { "agent": "websocket-driver node-v0.10.36",       "url": "ws://127.0.0.1:5003" },
-                  { "agent": "websocket-driver node-v0.12.0",        "url": "ws://127.0.0.1:5004" },
-                  { "agent": "websocket-driver iojs-v1.4.3",         "url": "ws://127.0.0.1:5005" },
+                  { "agent": "websocket-driver node-v0.10.38",       "url": "ws://127.0.0.1:5003" },
+                  { "agent": "websocket-driver node-v0.12.2",        "url": "ws://127.0.0.1:5004" },
+                  { "agent": "websocket-driver iojs-v1.6.4",         "url": "ws://127.0.0.1:5005" },
 
                   { "agent": "faye-websocket cruby-2.2.1 goliath",   "url": "ws://127.0.0.1:6001" },
                   { "agent": "faye-websocket cruby-2.2.1 passenger", "url": "ws://127.0.0.1:6002" },
