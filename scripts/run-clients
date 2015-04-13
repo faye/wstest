@@ -34,8 +34,8 @@ function compile-driver() {
 cd .repos/ruby/websocket
 run-ruby-client 1.9.3
 run-ruby-client 2.0.0
-run-ruby-client 2.1.5
-run-ruby-client 2.2.1
+run-ruby-client 2.1.6
+run-ruby-client 2.2.2
 
 chruby jruby
 compile-driver

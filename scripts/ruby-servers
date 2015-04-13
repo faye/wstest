@@ -18,9 +18,9 @@ function compile-driver() {
   cd -
 }
 
-run-faye-websocket-ruby-server  2.2.1 puma      6003
-run-faye-websocket-ruby-server  2.2.1 rainbows  6004
-run-faye-websocket-ruby-server  2.2.1 thin      6005
+run-faye-websocket-ruby-server  2.2.2 puma      6003
+run-faye-websocket-ruby-server  2.2.2 rainbows  6004
+run-faye-websocket-ruby-server  2.2.2 thin      6005
 
 ruby examples/server.rb 6001 '' goliath -svp 6001 &
 
@@ -28,7 +28,7 @@ cd examples
 bundle exec passenger start -p 6002 &
 cd ..
 
-run-faye-websocket-ruby-server  2.1.5 thin      6006
+run-faye-websocket-ruby-server  2.1.6 thin      6006
 run-faye-websocket-ruby-server  2.0.0 thin      6007
 run-faye-websocket-ruby-server  1.9.3 thin      6008
 
@@ -48,8 +48,8 @@ function run-websocket-driver-ruby-server() {
 
 run-websocket-driver-ruby-server  1.9.3 7001
 run-websocket-driver-ruby-server  2.0.0 7002
-run-websocket-driver-ruby-server  2.1.5 7003
-run-websocket-driver-ruby-server  2.2.1 7004
+run-websocket-driver-ruby-server  2.1.6 7003
+run-websocket-driver-ruby-server  2.2.2 7004
 
 chruby jruby
 bundle exec rake compile
