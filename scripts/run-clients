@@ -16,6 +16,7 @@ run-node-client 0.8
 run-node-client 0.10
 run-node-client 0.12
 run-node-client iojs
+run-node-client 4.0
 cd -
 
 
@@ -34,8 +35,8 @@ function compile-driver() {
 cd .repos/ruby/websocket
 run-ruby-client 1.9.3
 run-ruby-client 2.0.0
-run-ruby-client 2.1.6
-run-ruby-client 2.2.2
+run-ruby-client 2.1.7
+run-ruby-client 2.2.3
 
 chruby jruby
 compile-driver
