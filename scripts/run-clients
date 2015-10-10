@@ -17,6 +17,7 @@ run-node-client 0.10
 run-node-client 0.12
 run-node-client iojs
 run-node-client 4.0
+run-node-client 4.1
 cd -
 
 
