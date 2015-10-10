@@ -68,7 +68,7 @@ function install-ruby-gems() {
   for ruby in $RUBY_VERSIONS; do
     chruby $ruby
     rm -f Gemfile.lock
-    bundle install --path .bundle
+    ruby -S bundle install --path .bundle
   done
   cd -
 }

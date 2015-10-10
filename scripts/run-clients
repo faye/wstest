@@ -29,7 +29,7 @@ function run-ruby-client() {
 
 function compile-driver() {
   cd ../driver
-  bundle exec rake compile
+  ruby -S bundle exec rake compile
   cd -
 }
 
