@@ -39,7 +39,7 @@ run-ruby-client 2.0.0
 run-ruby-client 2.1.7
 run-ruby-client 2.2.3
 
-chruby jruby
+chruby jruby-1.7
 compile-driver
 ruby -J-Xmx2048m --1.9 examples/autobahn_client.rb
 ruby -J-Xmx2048m --2.0 examples/autobahn_client.rb
