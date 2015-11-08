@@ -14,7 +14,8 @@
                   { "agent": "faye-websocket node-v1.8.4",           "url": "ws://127.0.0.1:4005" },
                   { "agent": "faye-websocket node-v2.5.0",           "url": "ws://127.0.0.1:4006" },
                   { "agent": "faye-websocket node-v3.2.0",           "url": "ws://127.0.0.1:4007" },
-                  { "agent": "faye-websocket node-v5.0.0",           "url": "ws://127.0.0.1:4008" },
+                  { "agent": "faye-websocket node-v4.2.2",           "url": "ws://127.0.0.1:4008" },
+                  { "agent": "faye-websocket node-v5.0.0",           "url": "ws://127.0.0.1:4009" },
 
                   { "agent": "websocket-driver node-v0.6.21",        "url": "ws://127.0.0.1:5001" },
                   { "agent": "websocket-driver node-v0.8.28",        "url": "ws://127.0.0.1:5002" },
@@ -23,7 +24,8 @@
                   { "agent": "websocket-driver node-v1.8.4",         "url": "ws://127.0.0.1:5005" },
                   { "agent": "websocket-driver node-v2.5.0",         "url": "ws://127.0.0.1:5006" },
                   { "agent": "websocket-driver node-v3.2.0",         "url": "ws://127.0.0.1:5007" },
-                  { "agent": "websocket-driver node-v5.0.0",         "url": "ws://127.0.0.1:5008" },
+                  { "agent": "websocket-driver node-v4.2.2",         "url": "ws://127.0.0.1:5008" },
+                  { "agent": "websocket-driver node-v5.0.0",         "url": "ws://127.0.0.1:5009" },
 
                   { "agent": "faye-websocket cruby-2.2.3 goliath",   "url": "ws://127.0.0.1:6001" },
                   { "agent": "faye-websocket cruby-2.2.3 passenger", "url": "ws://127.0.0.1:6002" },

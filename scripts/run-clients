@@ -18,6 +18,7 @@ run-node-client 0.12
 run-node-client 1.8
 run-node-client 2.5
 run-node-client 3.2
+run-node-client 4.2.2
 run-node-client 5.0
 cd -
 

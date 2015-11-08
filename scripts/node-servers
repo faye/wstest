@@ -18,7 +18,8 @@ run-faye-websocket-node-server  0.12  4004
 run-faye-websocket-node-server  1.8   4005
 run-faye-websocket-node-server  2.5   4006
 run-faye-websocket-node-server  3.2   4007
-run-faye-websocket-node-server  5.0   4008
+run-faye-websocket-node-server  4.2.2 4008
+run-faye-websocket-node-server  5.0   4009
 
 
 cd ../driver
@@ -35,4 +36,5 @@ run-websocket-driver-node-server  0.12  5004
 run-websocket-driver-node-server  1.8   5005
 run-websocket-driver-node-server  2.5   5006
 run-websocket-driver-node-server  3.2   5007
-run-websocket-driver-node-server  5.0   5008
+run-websocket-driver-node-server  4.2.2 5008
+run-websocket-driver-node-server  5.0   5009
