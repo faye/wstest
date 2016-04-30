@@ -11,15 +11,12 @@ function run-faye-websocket-node-server() {
   node examples/server.js $2 &
 }
 
-run-faye-websocket-node-server  0.6   4001
-run-faye-websocket-node-server  0.8   4002
-run-faye-websocket-node-server  0.10  4003
-run-faye-websocket-node-server  0.12  4004
-run-faye-websocket-node-server  1.8   4005
-run-faye-websocket-node-server  2.5   4006
-run-faye-websocket-node-server  3.2   4007
-run-faye-websocket-node-server  4.2.2 4008
-run-faye-websocket-node-server  5.0   4009
+run-faye-websocket-node-server  0.8   4001
+run-faye-websocket-node-server  0.10  4002
+run-faye-websocket-node-server  0.12  4003
+run-faye-websocket-node-server  4.4   4004
+run-faye-websocket-node-server  5     4005
+run-faye-websocket-node-server  6     4006
 
 
 cd ../driver
@@ -29,12 +26,9 @@ function run-websocket-driver-node-server() {
   node examples/tcp_server.js $2 &
 }
 
-run-websocket-driver-node-server  0.6   5001
-run-websocket-driver-node-server  0.8   5002
-run-websocket-driver-node-server  0.10  5003
-run-websocket-driver-node-server  0.12  5004
-run-websocket-driver-node-server  1.8   5005
-run-websocket-driver-node-server  2.5   5006
-run-websocket-driver-node-server  3.2   5007
-run-websocket-driver-node-server  4.2.2 5008
-run-websocket-driver-node-server  5.0   5009
+run-websocket-driver-node-server  0.8   5001
+run-websocket-driver-node-server  0.10  5002
+run-websocket-driver-node-server  0.12  5003
+run-websocket-driver-node-server  4.4   5004
+run-websocket-driver-node-server  5     5005
+run-websocket-driver-node-server  6     5006

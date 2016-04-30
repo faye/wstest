@@ -41,16 +41,23 @@ install-node-modules driver
 install-node-modules extensions
 install-node-modules permessage-deflate
 
+
+function link-repo() {
+  if [ -d $1 ]; then
+    rm -rf $1
+    ln -s ../../$2 $1
+  fi
+}
+
 cd driver/node_modules
-rm -rf permessage-deflate websocket-extensions
-ln -s ../../permessage-deflate permessage-deflate
-ln -s ../../extensions websocket-extensions
+link-repo permessage-deflate   permessage-deflate
+link-repo websocket-extensions extensions
 cd -
 
 cd websocket/node_modules
-rm -rf permessage-deflate websocket-driver
-ln -s ../../permessage-deflate permessage-deflate
-ln -s ../../driver websocket-driver
+link-repo permessage-deflate   permessage-deflate
+link-repo websocket-driver     driver
+link-repo websocket-extensions extensions
 cd -
 
 
@@ -60,7 +67,7 @@ checkout  driver              websocket-driver-ruby
 checkout  extensions          websocket-extensions-ruby
 checkout  permessage-deflate  permessage-deflate-ruby
 
-RUBY_VERSIONS="1.9.3 2.0.0 2.1.7 2.2.3 jruby-1.7"
+RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.5 2.3.1 jruby-1.7"
 . /usr/local/share/chruby/chruby.sh
 
 function install-ruby-gems() {
