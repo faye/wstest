@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+var WebSocket = require('../.code/node/websocket').Client,
+    fs        = require('fs'),
+    path      = require('path');
+
+var configPath = path.join(__dirname, '..', 'fuzzingclient.json'),
+    config     = JSON.parse(fs.readFileSync(configPath, 'utf8')),
+    count      = 0;
+
+var ping = function() {
+  var server = config.servers.shift();
+  if (!server) return console.log(count);
+
+  var ws      = new WebSocket(server.url),
+      message = 'hello';
+
+  ws.onmessage = function(event) {
+    if (event.data !== message) return;
+
+    count++;
+    ws.onclose = ping;
+    ws.close();
+  };
+
+  ws.onopen = function() {
+    ws.send(message);
+  };
+};
+
+ping();
