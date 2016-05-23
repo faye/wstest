@@ -10,7 +10,7 @@ function run-node-client() {
   node examples/autobahn_client.js
 }
 
-cd .repos/node/websocket
+cd .code/node/websocket
 run-node-client 0.8
 run-node-client 0.10
 run-node-client 0.12
@@ -32,7 +32,7 @@ function compile-driver() {
   cd -
 }
 
-cd .repos/ruby/websocket
+cd .code/ruby/websocket
 run-ruby-client 1.9.3
 run-ruby-client 2.0.0
 run-ruby-client 2.1.10

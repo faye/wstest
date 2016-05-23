@@ -3,7 +3,7 @@
 set -e
 
 
-mkdir -p .repos/node .repos/ruby
+mkdir -p .code/node .code/ruby
 
 function checkout() {
   if [ -d $1 ]; then
@@ -23,7 +23,7 @@ function checkout() {
 }
 
 
-cd .repos/node
+cd .code/node
 checkout  websocket           faye-websocket-node
 checkout  driver              websocket-driver-node
 checkout  extensions          websocket-extensions-node

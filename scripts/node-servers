@@ -4,7 +4,7 @@ set -e
 . ~/.nvm/nvm.sh
 
 
-cd .repos/node/websocket
+cd .code/node/websocket
 
 function run-faye-websocket-node-server() {
   nvm use $1

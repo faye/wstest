@@ -4,7 +4,7 @@ set -e
 . /usr/local/share/chruby/chruby.sh
 
 
-cd .repos/ruby/websocket
+cd .code/ruby/websocket
 
 function run-faye-websocket-ruby-server() {
   chruby $1
