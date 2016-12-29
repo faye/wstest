@@ -17,6 +17,7 @@ run-node-client 0.12
 run-node-client 4.4
 run-node-client 5
 run-node-client 6
+run-node-client 7
 cd -
 
 
@@ -36,8 +37,9 @@ cd .code/ruby/websocket
 run-ruby-client 1.9.3
 run-ruby-client 2.0.0
 run-ruby-client 2.1.10
-run-ruby-client 2.2.5
-run-ruby-client 2.3.1
+run-ruby-client 2.2.6
+run-ruby-client 2.3.3
+run-ruby-client 2.4.0
 
 chruby jruby-1.7
 compile-driver
