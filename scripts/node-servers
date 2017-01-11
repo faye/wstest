@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-. ~/.nvm/nvm.sh
+. /usr/local/opt/nvm/nvm.sh
 
 
 cd .code/node/websocket
@@ -14,7 +14,7 @@ function run-faye-websocket-node-server() {
 run-faye-websocket-node-server  0.8   4001
 run-faye-websocket-node-server  0.10  4002
 run-faye-websocket-node-server  0.12  4003
-run-faye-websocket-node-server  4.4   4004
+run-faye-websocket-node-server  4     4004
 run-faye-websocket-node-server  5     4005
 run-faye-websocket-node-server  6     4006
 run-faye-websocket-node-server  7     4007
@@ -30,7 +30,7 @@ function run-websocket-driver-node-server() {
 run-websocket-driver-node-server  0.8   5001
 run-websocket-driver-node-server  0.10  5002
 run-websocket-driver-node-server  0.12  5003
-run-websocket-driver-node-server  4.4   5004
+run-websocket-driver-node-server  4     5004
 run-websocket-driver-node-server  5     5005
 run-websocket-driver-node-server  6     5006
 run-websocket-driver-node-server  7     5007
