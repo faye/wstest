@@ -42,6 +42,6 @@
                   { "agent": "websocket-driver cruby-2.4.0",         "url": "ws://127.0.0.1:7006" }
               ],
    "cases": ["*"],
-   "exclude-cases": ["12.*", "13.*"],
+   "exclude-cases": [],
    "exclude-agent-cases": {}
 }
