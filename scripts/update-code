@@ -67,7 +67,7 @@ checkout  driver              websocket-driver-ruby
 checkout  extensions          websocket-extensions-ruby
 checkout  permessage-deflate  permessage-deflate-ruby
 
-RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.6 2.3.3 2.4.0 jruby-1.7"
+RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.7 2.3.4 2.4.1 jruby-1.7"
 . /usr/local/share/chruby/chruby.sh
 
 function install-ruby-gems() {
