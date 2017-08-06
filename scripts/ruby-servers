@@ -35,6 +35,7 @@ run-faye-websocket-ruby-server  2.0.0   thin      6009
 run-faye-websocket-ruby-server  1.9.3   thin      6010
 
 chruby jruby-1.7
+rm Gemfile.lock
 compile-driver
 ruby -J-Xmx2048m --2.0 examples/server.rb 3001 '' puma &
 ruby -J-Xmx2048m --1.9 examples/server.rb 3002 '' puma &
