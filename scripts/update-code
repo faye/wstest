@@ -15,7 +15,7 @@ function checkout() {
     git clone git://github.com/faye/$2.git $1
     cd $1
   fi
-  local patch_file=../../../patches/$2.diff
+  local patch_file=../../../../patches/$2.diff
   if [ -f $patch_file ]; then
     patch -p1 -i $patch_file
   fi
@@ -62,25 +62,27 @@ cd -
 
 
 cd ../ruby
-checkout  websocket           faye-websocket-ruby
-checkout  driver              websocket-driver-ruby
-checkout  extensions          websocket-extensions-ruby
-checkout  permessage-deflate  permessage-deflate-ruby
-
-RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.7 2.3.4 2.4.1 jruby-1.7"
 . /usr/local/share/chruby/chruby.sh
+RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.7 2.3.4 2.4.1 jruby-1.7"
 
 function install-ruby-gems() {
-  cd $1
-  for ruby in $RUBY_VERSIONS; do
-    chruby $ruby
-    rm -f Gemfile.lock
-    ruby -S bundle install --path .bundle
-  done
+  cd $1/$2
+  chruby $1
+  rm -f Gemfile.lock
+  ruby -S bundle install --path .bundle
   cd -
 }
 
-install-ruby-gems websocket
-install-ruby-gems driver
-install-ruby-gems extensions
-install-ruby-gems permessage-deflate
+for ruby in $RUBY_VERSIONS; do
+  mkdir -p $ruby
+
+  checkout  $ruby/websocket           faye-websocket-ruby
+  checkout  $ruby/driver              websocket-driver-ruby
+  checkout  $ruby/extensions          websocket-extensions-ruby
+  checkout  $ruby/permessage-deflate  permessage-deflate-ruby
+
+  install-ruby-gems $ruby websocket
+  install-ruby-gems $ruby driver
+  install-ruby-gems $ruby extensions
+  install-ruby-gems $ruby permessage-deflate
+done

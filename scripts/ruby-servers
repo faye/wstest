@@ -4,59 +4,56 @@ set -e
 . /usr/local/share/chruby/chruby.sh
 
 
-cd .code/ruby/websocket
-
-function run-faye-websocket-ruby-server() {
-  chruby $1
-  compile-driver
-  ruby examples/server.rb $3 '' $2 &
-}
-
-function compile-driver() {
-  cd ../driver
-  ruby -S bundle exec rake compile
-  cd -
-}
-
-run-faye-websocket-ruby-server  2.4.1   puma      6003
-run-faye-websocket-ruby-server  2.4.1   rainbows  6004
-run-faye-websocket-ruby-server  2.4.1   thin      6005
-
-ruby examples/server.rb 6001 '' goliath -svp 6001 &
-
-cd examples
-ruby -S bundle exec passenger start -p 6002 &
-cd ..
-
-run-faye-websocket-ruby-server  2.3.4   thin      6006
-run-faye-websocket-ruby-server  2.2.7   thin      6007
-run-faye-websocket-ruby-server  2.1.10  thin      6008
-run-faye-websocket-ruby-server  2.0.0   thin      6009
-run-faye-websocket-ruby-server  1.9.3   thin      6010
-
-chruby jruby-1.7
-rm Gemfile.lock
-compile-driver
-ruby -J-Xmx2048m --2.0 examples/server.rb 3001 '' puma &
-ruby -J-Xmx2048m --1.9 examples/server.rb 3002 '' puma &
-
-
-cd ../driver
+cd .code/ruby
 
 function run-websocket-driver-ruby-server() {
+  cd $1/driver
   chruby $1
   ruby -S bundle exec rake compile
   ruby examples/tcp_server.rb $2 &
+  cd -
 }
 
-run-websocket-driver-ruby-server  1.9.3   7001
-run-websocket-driver-ruby-server  2.0.0   7002
-run-websocket-driver-ruby-server  2.1.10  7003
-run-websocket-driver-ruby-server  2.2.7   7004
-run-websocket-driver-ruby-server  2.3.4   7005
-run-websocket-driver-ruby-server  2.4.1   7006
+run-websocket-driver-ruby-server  1.9.3   6001
+run-websocket-driver-ruby-server  2.0.0   6002
+run-websocket-driver-ruby-server  2.1.10  6003
+run-websocket-driver-ruby-server  2.2.7   6004
+run-websocket-driver-ruby-server  2.3.4   6005
+run-websocket-driver-ruby-server  2.4.1   6006
 
+cd jruby-1.7/driver
 chruby jruby-1.7
 ruby -S bundle exec rake compile
-ruby -J-Xmx2048m --1.9 examples/tcp_server.rb 3003 &
-ruby -J-Xmx2048m --2.0 examples/tcp_server.rb 3004 &
+ruby -J-Xmx2048m --1.9 examples/tcp_server.rb 6007 &
+ruby -J-Xmx2048m --2.0 examples/tcp_server.rb 6008 &
+cd -
+
+
+function run-faye-websocket-ruby-server() {
+  cd $1/websocket
+  chruby $1
+  ruby examples/server.rb $3 '' $2 &
+  cd -
+}
+
+cd 2.4.1/websocket
+chruby 2.4.1
+ruby examples/server.rb 7001 '' goliath -svp 7001 &
+cd examples
+ruby -S bundle exec passenger start -p 7002 &
+cd ../../..
+
+run-faye-websocket-ruby-server  2.4.1   puma      7003
+run-faye-websocket-ruby-server  2.4.1   rainbows  7004
+run-faye-websocket-ruby-server  2.4.1   thin      7005
+run-faye-websocket-ruby-server  2.3.4   thin      7006
+run-faye-websocket-ruby-server  2.2.7   thin      7007
+run-faye-websocket-ruby-server  2.1.10  thin      7008
+run-faye-websocket-ruby-server  2.0.0   thin      7009
+run-faye-websocket-ruby-server  1.9.3   thin      7010
+
+cd jruby-1.7/websocket
+chruby jruby-1.7
+ruby -J-Xmx2048m --2.0 examples/server.rb 7011 '' puma &
+ruby -J-Xmx2048m --1.9 examples/server.rb 7012 '' puma &
+cd -
