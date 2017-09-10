@@ -24,10 +24,6 @@ function checkout() {
 
 
 cd .code/node
-checkout  websocket           faye-websocket-node
-checkout  driver              websocket-driver-node
-checkout  extensions          websocket-extensions-node
-checkout  permessage-deflate  permessage-deflate-node
 
 function install-node-modules() {
   cd "$1"
@@ -35,6 +31,11 @@ function install-node-modules() {
   npm install
   cd -
 }
+
+checkout  websocket           faye-websocket-node
+checkout  driver              websocket-driver-node
+checkout  extensions          websocket-extensions-node
+checkout  permessage-deflate  permessage-deflate-node
 
 install-node-modules websocket
 install-node-modules driver
@@ -63,7 +64,7 @@ cd -
 
 cd ../ruby
 . /usr/local/share/chruby/chruby.sh
-RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.7 2.3.4 2.4.1 jruby-1.7"
+RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.7 2.3.4 2.4.1 jruby-1.7 jruby-9"
 
 function install-ruby-gems() {
   cd "$1/$2"

@@ -24,8 +24,14 @@ run-websocket-driver-ruby-server  2.4.1   6006
 cd jruby-1.7/driver
 chruby jruby-1.7
 ruby -S bundle exec rake compile
-ruby -J-Xmx2048m --1.9 examples/tcp_server.rb 6007 &
-ruby -J-Xmx2048m --2.0 examples/tcp_server.rb 6008 &
+ruby -J-Xmx2048m --1.9 examples/em_server.rb 6007 &
+ruby -J-Xmx2048m --2.0 examples/em_server.rb 6008 &
+cd -
+
+cd jruby-9/driver
+chruby jruby-9
+ruby -S bundle exec rake compile
+ruby -J-Xmx2048m examples/em_server.rb 6009 &
 cd -
 
 
@@ -52,8 +58,13 @@ run-faye-websocket-ruby-server  2.1.10  thin      7008
 run-faye-websocket-ruby-server  2.0.0   thin      7009
 run-faye-websocket-ruby-server  1.9.3   thin      7010
 
+cd jruby-9/websocket
+chruby jruby-9
+ruby -J-Xmx2048m examples/server.rb 7011 '' puma &
+cd -
+
 cd jruby-1.7/websocket
 chruby jruby-1.7
-ruby -J-Xmx2048m --2.0 examples/server.rb 7011 '' puma &
-ruby -J-Xmx2048m --1.9 examples/server.rb 7012 '' puma &
+ruby -J-Xmx2048m --2.0 examples/server.rb 7012 '' puma &
+ruby -J-Xmx2048m --1.9 examples/server.rb 7013 '' puma &
 cd -
