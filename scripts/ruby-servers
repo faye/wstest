@@ -7,10 +7,10 @@ set -e
 cd .code/ruby
 
 function run-websocket-driver-ruby-server() {
-  cd $1/driver
-  chruby $1
+  cd "$1/driver"
+  chruby "$1"
   ruby -S bundle exec rake compile
-  ruby examples/tcp_server.rb $2 &
+  ruby examples/em_server.rb "$2" &
   cd -
 }
 
@@ -30,9 +30,9 @@ cd -
 
 
 function run-faye-websocket-ruby-server() {
-  cd $1/websocket
-  chruby $1
-  ruby examples/server.rb $3 '' $2 &
+  cd "$1/websocket"
+  chruby "$1"
+  ruby examples/server.rb "$3" '' "$2" &
   cd -
 }
 

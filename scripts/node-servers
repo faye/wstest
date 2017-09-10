@@ -7,8 +7,8 @@ set -e
 cd .code/node/driver
 
 function run-websocket-driver-node-server() {
-  nvm use $1
-  node examples/tcp_server.js $2 &
+  nvm use "$1"
+  node examples/net_server.js "$2" &
 }
 
 run-websocket-driver-node-server  0.8   4001
@@ -24,8 +24,8 @@ run-websocket-driver-node-server  8     4008
 cd ../websocket
 
 function run-faye-websocket-node-server() {
-  nvm use $1
-  node examples/server.js $2 &
+  nvm use "$1"
+  node examples/server.js "$2" &
 }
 
 run-faye-websocket-node-server  0.8   5001
