@@ -1,2 +1,2 @@
-autobahntestsuite
+autobahntestsuite==0.7.5
 unittest2
