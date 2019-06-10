@@ -5,24 +5,19 @@ set -e
 . /usr/local/share/chruby/chruby.sh
 
 
-function run-node-client() {
+function node-client() {
   cd .code/node/websocket
   nvm use "$1"
   node examples/autobahn_client.js
   cd -
 }
 
-run-node-client 0.8
-run-node-client 0.10
-run-node-client 0.12
-run-node-client 4
-run-node-client 5
-run-node-client 6
-run-node-client 7
-run-node-client 8
+for v in 0.8 0.10 0.12 4 5 6 7 8 9 10 11 12 ; do
+  node-client "$v"
+done
 
 
-function run-ruby-client() {
+function ruby-client() {
   cd ".code/ruby/$1/websocket"
   chruby "$1"
   compile-driver
@@ -36,12 +31,9 @@ function compile-driver() {
   cd -
 }
 
-run-ruby-client 1.9.3
-run-ruby-client 2.0.0
-run-ruby-client 2.1.10
-run-ruby-client 2.2.7
-run-ruby-client 2.3.4
-run-ruby-client 2.4.1
+for v in 1.9.3 2.0.0 2.1.10 2.2.10 2.3.8 2.4.6 2.5.5 2.6.3 ; do
+  ruby-client "$v"
+done
 
 cd .code/ruby/jruby-1.7/websocket
 chruby jruby-1.7
@@ -49,8 +41,3 @@ compile-driver
 ruby -J-Xmx2048m --1.9 examples/autobahn_client.rb
 ruby -J-Xmx2048m --2.0 examples/autobahn_client.rb
 cd ../../../..
-
-cd .code/ruby/jruby-9/websocket
-chruby jruby-9
-compile-driver
-ruby -J-Xmx2048m examples/autobahn_client.rb

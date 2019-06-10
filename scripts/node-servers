@@ -6,33 +6,41 @@ set -e
 
 cd .code/node/driver
 
-function run-websocket-driver-node-server() {
+websocket-driver-node-server() {
   nvm use "$1"
   node examples/net_server.js "$2" &
 }
 
-run-websocket-driver-node-server  0.8   4001
-run-websocket-driver-node-server  0.10  4002
-run-websocket-driver-node-server  0.12  4003
-run-websocket-driver-node-server  4     4004
-run-websocket-driver-node-server  5     4005
-run-websocket-driver-node-server  6     4006
-run-websocket-driver-node-server  7     4007
-run-websocket-driver-node-server  8     4008
+websocket-driver-node-server  0.8   4001
+websocket-driver-node-server  0.10  4002
+websocket-driver-node-server  0.12  4003
+websocket-driver-node-server  4     4004
+websocket-driver-node-server  5     4005
+websocket-driver-node-server  6     4006
+websocket-driver-node-server  7     4007
+websocket-driver-node-server  8     4008
+websocket-driver-node-server  9     4009
+websocket-driver-node-server  10    4010
+websocket-driver-node-server  11    4011
+websocket-driver-node-server  12    4012
 
 
 cd ../websocket
 
-function run-faye-websocket-node-server() {
+faye-websocket-node-server() {
   nvm use "$1"
   node examples/server.js "$2" &
 }
 
-run-faye-websocket-node-server  0.8   5001
-run-faye-websocket-node-server  0.10  5002
-run-faye-websocket-node-server  0.12  5003
-run-faye-websocket-node-server  4     5004
-run-faye-websocket-node-server  5     5005
-run-faye-websocket-node-server  6     5006
-run-faye-websocket-node-server  7     5007
-run-faye-websocket-node-server  8     5008
+faye-websocket-node-server  0.8   5001
+faye-websocket-node-server  0.10  5002
+faye-websocket-node-server  0.12  5003
+faye-websocket-node-server  4     5004
+faye-websocket-node-server  5     5005
+faye-websocket-node-server  6     5006
+faye-websocket-node-server  7     5007
+faye-websocket-node-server  8     5008
+faye-websocket-node-server  9     5009
+faye-websocket-node-server  10    5010
+faye-websocket-node-server  11    5011
+faye-websocket-node-server  12    5012

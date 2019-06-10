@@ -3,10 +3,10 @@
 set -e
 
 
-mkdir -p .code/node .code/ruby
+mkdir -p .code/{node,ruby}
 
-function checkout() {
-  if [[ -d "$1" ]]; then
+checkout() {
+  if [[ -d "$1" ]] ; then
     cd "$1"
     git reset --hard
     git clean -fd
@@ -16,7 +16,7 @@ function checkout() {
     cd "$1"
   fi
   local patch_file="../../../../patches/$2.diff"
-  if [[ -f "$patch_file" ]]; then
+  if [[ -f "$patch_file" ]] ; then
     git apply "$patch_file"
   fi
   cd -
@@ -25,10 +25,10 @@ function checkout() {
 
 cd .code/node
 
-function install-node-modules() {
+install-node-modules() {
   cd "$1"
-  rm -rf node_modules
-  npm install
+  rm -rf node_modules package-lock.json
+  npm install --no-save
   cd -
 }
 
@@ -43,8 +43,8 @@ install-node-modules extensions
 install-node-modules permessage-deflate
 
 
-function link-repo() {
-  if [[ -d "$1" ]]; then
+link-repo() {
+  if [[ -d "$1" ]] ; then
     rm -rf "$1"
     ln -s "../../$2" "$1"
   fi
@@ -64,26 +64,26 @@ cd -
 
 cd ../ruby
 . /usr/local/share/chruby/chruby.sh
-RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.7 2.3.4 2.4.1 jruby-1.7 jruby-9"
+RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.10 2.3.8 2.4.6 2.5.5 2.6.3 jruby-1.7 jruby-9"
 
-function install-ruby-gems() {
-  cd "$1/$2"
-  chruby "$1"
+install-ruby-gems() {
+  cd "$1"
   rm -f Gemfile.lock
   ruby -S bundle install --path .bundle
   cd -
 }
 
-for ruby in $RUBY_VERSIONS; do
+for ruby in $RUBY_VERSIONS ; do
   mkdir -p "$ruby"
+  chruby "$ruby"
 
   checkout  "$ruby/websocket"           faye-websocket-ruby
   checkout  "$ruby/driver"              websocket-driver-ruby
   checkout  "$ruby/extensions"          websocket-extensions-ruby
   checkout  "$ruby/permessage-deflate"  permessage-deflate-ruby
 
-  install-ruby-gems "$ruby" websocket
-  install-ruby-gems "$ruby" driver
-  install-ruby-gems "$ruby" extensions
-  install-ruby-gems "$ruby" permessage-deflate
+  install-ruby-gems "$ruby/websocket"
+  install-ruby-gems "$ruby/driver"
+  install-ruby-gems "$ruby/extensions"
+  install-ruby-gems "$ruby/permessage-deflate"
 done
