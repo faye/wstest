@@ -2,14 +2,14 @@
 
 The Faye WebSocket stack consists of these modules:
 
-* faye-websocket: [node](https://github.com/faye/faye-websocket-node),
+- faye-websocket: [node](https://github.com/faye/faye-websocket-node),
   [ruby](https://github.com/faye/faye-websocket-ruby)
-* websocket-driver: [node](https://github.com/faye/websocket-driver-node),
+- websocket-driver: [node](https://github.com/faye/websocket-driver-node),
   [ruby](https://github.com/faye/websocket-driver-ruby)
-* websocket-extensions:
+- websocket-extensions:
   [node](https://github.com/faye/websocket-extensions-node),
   [ruby](https://github.com/faye/websocket-extensions-ruby)
-* permessage-deflate: [node](https://github.com/faye/permessage-deflate-node),
+- permessage-deflate: [node](https://github.com/faye/permessage-deflate-node),
   [ruby](https://github.com/faye/permessage-deflate-ruby)
 
 These are all tested using [Autobahn](http://autobahn.ws/testsuite/), an
@@ -24,32 +24,33 @@ locations, and that you have all the required Node and Ruby versions installed.
 
 To get set up:
 
-```
-git clone git://github.com/faye/wstest.git
-cd wstest
-virtualenv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
-```
+    git clone git://github.com/faye/wstest.git
+    cd wstest
+    pipenv install
 
 To update all the WebSocket modules from source and set up their dependencies:
 
-```
-./scripts/update-code
-```
+    ./scripts/update-code
 
-To run the server tests:
+To run the server tests, first start up the test servers:
 
-```
-./scripts/node-servers
-./scripts/ruby-servers
-wstest -m fuzzingclient
-killall node ruby java
-```
+    ./scripts/node-servers
+    ./scripts/ruby-servers
 
-To run the client tests:
+Then, in a pipenv shell, run the wstest client:
 
-```
-wstest -m fuzzingserver &
-./scripts/run-clients
-```
+    pipenv shell
+    wstest -m fuzzingclient
+
+Once the tests are complete, shut down all the test servers:
+
+    killall node ruby java
+
+To run the client tests, start the wstest server in a pipenv shell:
+
+    pipenv shell
+    wstest -m fuzzingserver
+
+Then, run the test clients:
+
+    ./scripts/clients

@@ -1,0 +1,6 @@
+[requires]
+python_version = "2"
+
+[packages]
+autobahntestsuite = "*"
+unittest2 = "*"
