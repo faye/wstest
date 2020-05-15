@@ -23,6 +23,8 @@ websocket-driver-node-server  9     4009
 websocket-driver-node-server  10    4010
 websocket-driver-node-server  11    4011
 websocket-driver-node-server  12    4012
+websocket-driver-node-server  13    4013
+websocket-driver-node-server  14    4014
 
 
 cd ../websocket
@@ -44,3 +46,5 @@ faye-websocket-node-server  9     5009
 faye-websocket-node-server  10    5010
 faye-websocket-node-server  11    5011
 faye-websocket-node-server  12    5012
+faye-websocket-node-server  13    5013
+faye-websocket-node-server  14    5014

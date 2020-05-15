@@ -19,15 +19,16 @@ websocket-driver-ruby-server  2.0.0   6002
 websocket-driver-ruby-server  2.1.10  6003
 websocket-driver-ruby-server  2.2.10  6004
 websocket-driver-ruby-server  2.3.8   6005
-websocket-driver-ruby-server  2.4.6   6006
-websocket-driver-ruby-server  2.5.5   6007
-websocket-driver-ruby-server  2.6.3   6008
+websocket-driver-ruby-server  2.4.10  6006
+websocket-driver-ruby-server  2.5.8   6007
+websocket-driver-ruby-server  2.6.6   6008
+websocket-driver-ruby-server  2.7.1   6009
 
 cd jruby-1.7/driver
 chruby jruby-1.7
 ruby -S bundle exec rake compile
-ruby -J-Xmx2048m --1.9 examples/em_server.rb 6009 &
-ruby -J-Xmx2048m --2.0 examples/em_server.rb 6010 &
+ruby -J-Xmx2048m --1.9 examples/em_server.rb 6010 &
+ruby -J-Xmx2048m --2.0 examples/em_server.rb 6011 &
 cd -
 
 
@@ -38,26 +39,28 @@ faye-websocket-ruby-server() {
   cd -
 }
 
-cd 2.6.3/websocket
-chruby 2.6.3
-ruby examples/server.rb 7001 '' goliath -svp 7001 &
+faye-websocket-ruby-server  1.9.3   thin      7001
+faye-websocket-ruby-server  2.0.0   thin      7002
+faye-websocket-ruby-server  2.1.10  thin      7003
+faye-websocket-ruby-server  2.2.10  thin      7004
+faye-websocket-ruby-server  2.3.8   thin      7005
+faye-websocket-ruby-server  2.4.10  thin      7006
+faye-websocket-ruby-server  2.5.8   thin      7007
+faye-websocket-ruby-server  2.6.6   thin      7008
+faye-websocket-ruby-server  2.7.1   thin      7009
+
+cd 2.7.1/websocket
+chruby 2.7.1
+ruby examples/server.rb 7010 '' goliath -svp 7010 &
 cd examples
-ruby -S bundle exec passenger start -p 7002 &
+ruby -S bundle exec passenger start -p 7011 &
 cd ../../..
 
-faye-websocket-ruby-server  2.6.3   puma      7003
-faye-websocket-ruby-server  2.6.3   rainbows  7004
-faye-websocket-ruby-server  2.6.3   thin      7005
-faye-websocket-ruby-server  2.5.5   thin      7006
-faye-websocket-ruby-server  2.4.6   thin      7007
-faye-websocket-ruby-server  2.3.8   thin      7008
-faye-websocket-ruby-server  2.2.10  thin      7009
-faye-websocket-ruby-server  2.1.10  thin      7010
-faye-websocket-ruby-server  2.0.0   thin      7011
-faye-websocket-ruby-server  1.9.3   thin      7012
+faye-websocket-ruby-server  2.7.1   puma      7012
+faye-websocket-ruby-server  2.7.1   rainbows  7013
 
 cd jruby-1.7/websocket
 chruby jruby-1.7
-ruby -J-Xmx2048m --2.0 examples/server.rb 7013 '' puma &
 ruby -J-Xmx2048m --1.9 examples/server.rb 7014 '' puma &
+ruby -J-Xmx2048m --2.0 examples/server.rb 7015 '' puma &
 cd -

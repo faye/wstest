@@ -8,9 +8,9 @@ mkdir -p .code/{node,ruby}
 checkout() {
   if [[ -d "$1" ]] ; then
     cd "$1"
-    git reset --hard
     git clean -fd
-    git pull --rebase
+    git fetch origin
+    git reset --hard @{u}
   else
     git clone "git://github.com/faye/$2.git" "$1"
     cd "$1"
@@ -64,12 +64,12 @@ cd -
 
 cd ../ruby
 . /usr/local/share/chruby/chruby.sh
-RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.10 2.3.8 2.4.6 2.5.5 2.6.3 jruby-1.7 jruby-9"
+RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.10 2.3.8 2.4.10 2.5.8 2.6.6 2.7.1 jruby-1.7 jruby-9.1"
 
 install-ruby-gems() {
   cd "$1"
   rm -f Gemfile.lock
-  ruby -S bundle install --path .bundle
+  ruby -S bundle install --path ../../.bundle
   cd -
 }
 
