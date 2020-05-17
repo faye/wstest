@@ -34,6 +34,8 @@ ruby -J-Xmx2048m --1.9 examples/em_server.rb 6010 &
 ruby -J-Xmx2048m --2.0 examples/em_server.rb 6011 &
 cd -
 
+websocket-driver-ruby-server jruby-9.2 6012
+
 
 faye-websocket-ruby-server() {
   local version="$1"
@@ -71,3 +73,5 @@ chruby jruby-1.7
 ruby -J-Xmx2048m --1.9 examples/server.rb 7014 '' puma &
 ruby -J-Xmx2048m --2.0 examples/server.rb 7015 '' puma &
 cd -
+
+faye-websocket-ruby-server jruby-9.2 puma 7016

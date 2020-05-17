@@ -45,3 +45,5 @@ compile-driver
 ruby -J-Xmx2048m --1.9 examples/autobahn_client.rb
 ruby -J-Xmx2048m --2.0 examples/autobahn_client.rb
 cd ../../../..
+
+ruby-client jruby-9.2
