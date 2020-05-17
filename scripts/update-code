@@ -74,9 +74,8 @@ cd ../ruby
 . /usr/local/share/chruby/chruby.sh
 
 RUBY_VERSIONS=(
-  1.9.3
-  2.0.0 2.1.10 2.2.10 2.3.8
-  2.4.10 2.5.8 2.6.6 2.7.1
+  ruby-1.9
+  ruby-2.{0..7}
   jruby-{1.7,9.1,9.2}
 )
 

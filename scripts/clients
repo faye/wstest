@@ -14,8 +14,8 @@ function node-client() {
   cd -
 }
 
-for v in 0.8 0.10 0.12 {4..14} ; do
-  node-client "$v"
+for version in 0.8 0.10 0.12 {4..14} ; do
+  node-client "$version"
 done
 
 
@@ -35,8 +35,8 @@ function compile-driver() {
   cd -
 }
 
-for v in 1.9.3 2.0.0 2.1.10 2.2.10 2.3.8 2.4.10 2.5.8 2.6.6 2.7.1 ; do
-  ruby-client "$v"
+for version in 1.9 2.{0..7} ; do
+  ruby-client "ruby-$version"
 done
 
 cd .code/ruby/jruby-1.7/websocket

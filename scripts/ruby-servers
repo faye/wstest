@@ -17,15 +17,15 @@ websocket-driver-ruby-server() {
   cd -
 }
 
-websocket-driver-ruby-server  1.9.3   6001
-websocket-driver-ruby-server  2.0.0   6002
-websocket-driver-ruby-server  2.1.10  6003
-websocket-driver-ruby-server  2.2.10  6004
-websocket-driver-ruby-server  2.3.8   6005
-websocket-driver-ruby-server  2.4.10  6006
-websocket-driver-ruby-server  2.5.8   6007
-websocket-driver-ruby-server  2.6.6   6008
-websocket-driver-ruby-server  2.7.1   6009
+websocket-driver-ruby-server  ruby-1.9  6001
+websocket-driver-ruby-server  ruby-2.0  6002
+websocket-driver-ruby-server  ruby-2.1  6003
+websocket-driver-ruby-server  ruby-2.2  6004
+websocket-driver-ruby-server  ruby-2.3  6005
+websocket-driver-ruby-server  ruby-2.4  6006
+websocket-driver-ruby-server  ruby-2.5  6007
+websocket-driver-ruby-server  ruby-2.6  6008
+websocket-driver-ruby-server  ruby-2.7  6009
 
 cd jruby-1.7/driver
 chruby jruby-1.7
@@ -48,25 +48,25 @@ faye-websocket-ruby-server() {
   cd -
 }
 
-faye-websocket-ruby-server  1.9.3   thin      7001
-faye-websocket-ruby-server  2.0.0   thin      7002
-faye-websocket-ruby-server  2.1.10  thin      7003
-faye-websocket-ruby-server  2.2.10  thin      7004
-faye-websocket-ruby-server  2.3.8   thin      7005
-faye-websocket-ruby-server  2.4.10  thin      7006
-faye-websocket-ruby-server  2.5.8   thin      7007
-faye-websocket-ruby-server  2.6.6   thin      7008
-faye-websocket-ruby-server  2.7.1   thin      7009
+faye-websocket-ruby-server  ruby-1.9  thin  7001
+faye-websocket-ruby-server  ruby-2.0  thin  7002
+faye-websocket-ruby-server  ruby-2.1  thin  7003
+faye-websocket-ruby-server  ruby-2.2  thin  7004
+faye-websocket-ruby-server  ruby-2.3  thin  7005
+faye-websocket-ruby-server  ruby-2.4  thin  7006
+faye-websocket-ruby-server  ruby-2.5  thin  7007
+faye-websocket-ruby-server  ruby-2.6  thin  7008
+faye-websocket-ruby-server  ruby-2.7  thin  7009
 
-cd 2.7.1/websocket
-chruby 2.7.1
+cd ruby-2.7/websocket
+chruby ruby-2.7
 ruby examples/server.rb 7010 '' goliath -svp 7010 &
 cd examples
 ruby -S bundle exec passenger start -p 7011 &
 cd ../../..
 
-faye-websocket-ruby-server  2.7.1   puma      7012
-faye-websocket-ruby-server  2.7.1   rainbows  7013
+faye-websocket-ruby-server  ruby-2.7  puma      7012
+faye-websocket-ruby-server  ruby-2.7  rainbows  7013
 
 cd jruby-1.7/websocket
 chruby jruby-1.7
