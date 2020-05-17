@@ -7,8 +7,11 @@ set -e
 cd .code/node/driver
 
 websocket-driver-node-server() {
-  nvm use "$1"
-  node examples/net_server.js "$2" &
+  local version="$1"
+  local port="$2"
+
+  nvm use "$version"
+  node examples/net_server.js "$port" &
 }
 
 websocket-driver-node-server  0.8   4001
@@ -30,8 +33,11 @@ websocket-driver-node-server  14    4014
 cd ../websocket
 
 faye-websocket-node-server() {
-  nvm use "$1"
-  node examples/server.js "$2" &
+  local version="$1"
+  local port="$2"
+
+  nvm use "$version"
+  node examples/server.js "$port" &
 }
 
 faye-websocket-node-server  0.8   5001

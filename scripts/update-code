@@ -6,18 +6,21 @@ set -e
 mkdir -p .code/{node,ruby}
 
 checkout() {
-  if [[ -d "$1" ]] ; then
-    cd "$1"
+  local dir="$1"
+  local repo="$2"
+  local patch="../../../../patches/$repo.diff"
+
+  if [[ -d "$dir" ]] ; then
+    cd "$dir"
     git clean -fd
     git fetch origin
     git reset --hard @{u}
   else
-    git clone "git://github.com/faye/$2.git" "$1"
-    cd "$1"
+    git clone "git://github.com/faye/$repo.git" "$dir"
+    cd "$dir"
   fi
-  local patch_file="../../../../patches/$2.diff"
-  if [[ -f "$patch_file" ]] ; then
-    git apply "$patch_file"
+  if [[ -f "$patch" ]] ; then
+    git apply "$patch"
   fi
   cd -
 }
@@ -26,7 +29,9 @@ checkout() {
 cd .code/node
 
 install-node-modules() {
-  cd "$1"
+  local dir="$1"
+
+  cd "$dir"
   rm -rf node_modules package-lock.json
   npm install --no-save
   cd -
@@ -44,9 +49,12 @@ install-node-modules permessage-deflate
 
 
 link-repo() {
-  if [[ -d "$1" ]] ; then
-    rm -rf "$1"
-    ln -s "../../$2" "$1"
+  local pkg="$1"
+  local dir="$2"
+
+  if [[ -d "$pkg" ]] ; then
+    rm -rf "$pkg"
+    ln -s "../../$dir" "$pkg"
   fi
 }
 
@@ -64,26 +72,34 @@ cd -
 
 cd ../ruby
 . /usr/local/share/chruby/chruby.sh
-RUBY_VERSIONS="1.9.3 2.0.0 2.1.10 2.2.10 2.3.8 2.4.10 2.5.8 2.6.6 2.7.1 jruby-1.7 jruby-9.1"
+
+RUBY_VERSIONS=(
+  1.9.3
+  2.0.0 2.1.10 2.2.10 2.3.8
+  2.4.10 2.5.8 2.6.6 2.7.1
+  jruby-{1.7,9.1,9.2}
+)
 
 install-ruby-gems() {
-  cd "$1"
+  local dir="$1"
+
+  cd "$dir"
   rm -f Gemfile.lock
   ruby -S bundle install --path ../../.bundle
   cd -
 }
 
-for ruby in $RUBY_VERSIONS ; do
-  mkdir -p "$ruby"
-  chruby "$ruby"
+for version in "${RUBY_VERSIONS[@]}" ; do
+  mkdir -p "$version"
+  chruby "$version"
 
-  checkout  "$ruby/websocket"           faye-websocket-ruby
-  checkout  "$ruby/driver"              websocket-driver-ruby
-  checkout  "$ruby/extensions"          websocket-extensions-ruby
-  checkout  "$ruby/permessage-deflate"  permessage-deflate-ruby
+  checkout  "$version/websocket"          faye-websocket-ruby
+  checkout  "$version/driver"             websocket-driver-ruby
+  checkout  "$version/extensions"         websocket-extensions-ruby
+  checkout  "$version/permessage-deflate" permessage-deflate-ruby
 
-  install-ruby-gems "$ruby/websocket"
-  install-ruby-gems "$ruby/driver"
-  install-ruby-gems "$ruby/extensions"
-  install-ruby-gems "$ruby/permessage-deflate"
+  install-ruby-gems "$version/websocket"
+  install-ruby-gems "$version/driver"
+  install-ruby-gems "$version/extensions"
+  install-ruby-gems "$version/permessage-deflate"
 done

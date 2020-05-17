@@ -7,10 +7,13 @@ set -e
 cd .code/ruby
 
 websocket-driver-ruby-server() {
-  cd "$1/driver"
-  chruby "$1"
+  local version="$1"
+  local port="$2"
+
+  cd "$version/driver"
+  chruby "$version"
   ruby -S bundle exec rake compile
-  ruby examples/em_server.rb "$2" &
+  ruby examples/em_server.rb "$port" &
   cd -
 }
 
@@ -33,9 +36,13 @@ cd -
 
 
 faye-websocket-ruby-server() {
-  cd "$1/websocket"
-  chruby "$1"
-  ruby examples/server.rb "$3" '' "$2" &
+  local version="$1"
+  local port="$2"
+  local server="$3"
+
+  cd "$version/websocket"
+  chruby "$version"
+  ruby examples/server.rb "$server" '' "$port" &
   cd -
 }
 

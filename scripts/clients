@@ -6,8 +6,10 @@ set -e
 
 
 function node-client() {
+  local version="$1"
+
   cd .code/node/websocket
-  nvm use "$1"
+  nvm use "$version"
   node examples/autobahn_client.js
   cd -
 }
@@ -18,8 +20,10 @@ done
 
 
 function ruby-client() {
-  cd ".code/ruby/$1/websocket"
-  chruby "$1"
+  local version="$1"
+
+  cd ".code/ruby/$version/websocket"
+  chruby "$version"
   compile-driver
   ruby examples/autobahn_client.rb
   cd ../../../..
