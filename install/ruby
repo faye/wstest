@@ -50,7 +50,11 @@ install-chruby() {
   make install
 
   local bash_profile=/home/vagrant/.bash_aliases
-  echo 'source /usr/local/share/chruby/chruby.sh' >> "$bash_profile"
+  touch "$bash_profile"
+
+  if ! grep -q chruby "$bash_profile" ; then
+    echo 'source /usr/local/share/chruby/chruby.sh' >> "$bash_profile"
+  fi
 }
 
 download-rubygems() {
