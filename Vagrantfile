@@ -67,5 +67,6 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  config.vm.provision "shell", path: "./install/node"
   config.vm.provision "shell", path: "./install/ruby"
 end
