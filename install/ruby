@@ -1,0 +1,68 @@
+#!/bin/bash
+set -euo pipefail
+
+install-ruby-install() {
+  local version="$1"
+  local filename="ruby-install-${version}.tar.gz" 
+  local url="https://github.com/postmodern/ruby-install/archive/v${version}.tar.gz"
+
+  cd /usr/local/src
+  [[ -f "$filename" ]] && return
+
+  wget -O "$filename" "$url"
+  tar -xzvf "$filename"
+
+  cd "ruby-install-${version}"
+  make install
+
+  mkdir -p /opt/rubies
+}
+
+install-chruby() {
+  local version="$1"
+  local filename="chruby-${version}.tar.gz"
+  local url="https://github.com/postmodern/chruby/archive/v${version}.tar.gz"
+
+  cd /usr/local/src
+  [[ -f "$filename" ]] && return
+
+  wget -O "$filename" "$url"
+  tar -xzvf "$filename"
+
+  cd "chruby-${version}"
+  make install
+
+  local bash_profile=/home/vagrant/.bash_aliases
+  echo 'source /usr/local/share/chruby/chruby.sh' >> "$bash_profile"
+}
+
+install-ruby() {
+  local version="$1"
+  local pathname="/opt/rubies/ruby-${version}"
+  [[ -d "$pathname" ]] && return
+
+  ruby-install -r /opt/rubies ruby "$version"
+}
+
+apt update
+apt install -y build-essential
+mkdir -p /usr/local/src
+
+install-ruby-install 0.8.1
+install-chruby 0.3.9
+
+RUBY_VERSIONS=(
+  3.0.0
+  2.7.2
+  2.6.6
+  2.5.8
+  2.4.10
+)
+
+for version in "${RUBY_VERSIONS[@]}" ; do
+  install-ruby "$version"
+
+  if [[ "$version" < '2.6' ]] ; then
+    "/opt/rubies/ruby-${version}/bin/gem" install bundler -v '< 2'
+  fi
+done
