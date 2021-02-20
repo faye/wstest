@@ -84,6 +84,17 @@ install-ruby() {
   esac
 }
 
+install-jruby() {
+  local version="$1"
+  local bundler_version="$2"
+
+  local pathname="/opt/rubies/jruby-${version}"
+  [[ -d "$pathname" ]] && return
+
+  ruby-install -r /opt/rubies jruby "$version"
+  "${pathname}/bin/ruby" -S gem install bundler -v "$bundler_version"
+}
+
 apt update
 apt install -y build-essential
 mkdir -p /usr/local/src
@@ -122,3 +133,6 @@ for version in "${RUBY_VERSIONS[@]}" ; do
       /usr/local/src/openssl@1.0/usr/local/ssl \
       /usr/local/src/rubygems-2.7.11
 done
+
+install-jruby 1.7.27 '< 2'
+install-jruby 9.2.14.0 '>= 2'
