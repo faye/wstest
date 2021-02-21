@@ -52,21 +52,22 @@ install-chruby() {
   local bash_profile=/home/vagrant/.bash_aliases
   touch "$bash_profile"
 
-  if ! grep -q chruby "$bash_profile" ; then
-    echo 'source /usr/local/share/chruby/chruby.sh' >> "$bash_profile"
+  if ! grep -q rubyrc "$bash_profile" ; then
+    cat > /home/vagrant/.rubyrc <<-EOF
+      export SSL_CERT_DIR=/etc/ssl/certs
+      source /usr/local/share/chruby/chruby.sh
+EOF
+    echo 'source ~/.rubyrc' >> "$bash_profile"
   fi
 }
 
-download-rubygems() {
-  local version="$1"
-  local filename="rubygems-${version}.tgz"
-  local url="https://rubygems.org/rubygems/rubygems-${version}.tgz"
+install-bundler() {
+  local ruby_version="$1"
+  local bundler_version="$2"
 
-  cd /usr/local/src
-  [[ -d "rubygems-${version}" ]] && return
-
-  wget -O "$filename" "$url"
-  tar -xzvf "$filename"
+  SSL_CERT_DIR=/etc/ssl/certs \
+      "/opt/rubies/${ruby_version}/bin/gem" install \
+      bundler -v "$bundler_version"
 }
 
 install-ruby() {
@@ -74,18 +75,12 @@ install-ruby() {
   local pathname="/opt/rubies/ruby-${version}"
   [[ -d "$pathname" ]] && return
 
-  case $# in
-    1)
-      ruby-install -r /opt/rubies ruby "$version"
-      ;;
-    3)
-      local openssl_dir="$2"
-      local rubygems_dir="$3"
-      ruby-install -r /opt/rubies ruby "$version" -- --with-openssl-dir="$openssl_dir"
-      cd "$rubygems_dir"
-      "${pathname}/bin/ruby" setup.rb
-      ;;
-  esac
+  if [[ $# -eq 2 ]] ; then
+    ruby-install -r /opt/rubies ruby "$version" -- --with-openssl-dir="$2"
+    install-bundler "ruby-${version}" '< 2'
+  else
+    ruby-install -r /opt/rubies ruby "$version"
+  fi
 }
 
 install-jruby() {
@@ -96,7 +91,7 @@ install-jruby() {
   [[ -d "$pathname" ]] && return
 
   ruby-install -r /opt/rubies jruby "$version"
-  "${pathname}/bin/ruby" -S gem install bundler -v "$bundler_version"
+  install-bundler "jruby-${version}" "$bundler_version"
 }
 
 apt-get update
@@ -106,7 +101,6 @@ mkdir -p /usr/local/src
 install-ruby-install 0.8.1
 install-chruby 0.3.9
 install-openssl '1.0.2u' /usr/local/src/openssl@1.0
-download-rubygems 2.7.11
 
 RUBY_VERSIONS=(
   3.0.0
@@ -120,7 +114,7 @@ for version in "${RUBY_VERSIONS[@]}" ; do
   install-ruby "$version"
 
   if [[ "$version" < '2.6' ]] ; then
-    "/opt/rubies/ruby-${version}/bin/gem" install bundler -v '< 2'
+    install-bundler "ruby-${version}" '< 2'
   fi
 done
 
@@ -133,10 +127,8 @@ RUBY_VERSIONS=(
 )
 
 for version in "${RUBY_VERSIONS[@]}" ; do
-  install-ruby "$version" \
-      /usr/local/src/openssl@1.0/usr/local/ssl \
-      /usr/local/src/rubygems-2.7.11
+  install-ruby "$version" /usr/local/src/openssl@1.0/usr/local/ssl
 done
 
-install-jruby 1.7.27 '< 2'
 install-jruby 9.2.14.0 '>= 2'
+install-jruby 1.7.27 '< 2'
