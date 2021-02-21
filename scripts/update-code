@@ -1,32 +1,28 @@
 #!/bin/bash
+set -eo pipefail
 
-set -e
 
-
-mkdir -p .code/{node,ruby}
+mkdir -p ~/src/{node,ruby}
 
 checkout() {
   local dir="$1"
   local repo="$2"
-  local patch="../../../../patches/$repo.diff"
+  local patch="/vagrant/patches/$repo.diff"
 
-  if [[ -d "$dir" ]] ; then
-    cd "$dir"
-    git clean -fd
-    git fetch origin
-    git reset --hard @{u}
-  else
-    git clone "git://github.com/faye/$repo.git" "$dir"
-    cd "$dir"
-  fi
-  if [[ -f "$patch" ]] ; then
-    git apply "$patch"
-  fi
+  [[ -d "$dir" ]] || git clone "git://github.com/faye/$repo.git" "$dir"
+
+  cd "$dir"
+  git clean -fd
+  git fetch origin
+  git reset --hard @{u}
+
+  [[ -f "$patch" ]] && git apply "$patch"
+
   cd -
 }
 
 
-cd .code/node
+cd ~/src/node
 
 install-node-modules() {
   local dir="$1"
@@ -70,13 +66,14 @@ link-repo websocket-extensions extensions
 cd -
 
 
-cd ../ruby
-. /usr/local/share/chruby/chruby.sh
+cd ~/src/ruby
+source /usr/local/share/chruby/chruby.sh
 
 RUBY_VERSIONS=(
   ruby-1.9
   ruby-2.{0..7}
-  jruby-{1.7,9.1,9.2}
+  ruby-3.0
+  jruby-{1.7,9.2}
 )
 
 install-ruby-gems() {
@@ -84,7 +81,7 @@ install-ruby-gems() {
 
   cd "$dir"
   rm -f Gemfile.lock
-  ruby -S bundle install --path ../../.bundle
+  ruby -S bundle install
   cd -
 }
 
