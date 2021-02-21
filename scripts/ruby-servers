@@ -1,20 +1,16 @@
 #!/bin/bash
+set -eo pipefail
+source /usr/local/share/chruby/chruby.sh
 
-set -e
-. /usr/local/share/chruby/chruby.sh
-
-
-cd .code/ruby
 
 websocket-driver-ruby-server() {
   local version="$1"
   local port="$2"
 
-  cd "$version/driver"
+  cd ~/src/ruby/$version/driver
   chruby "$version"
   ruby -S bundle exec rake compile
   ruby examples/em_server.rb "$port" &
-  cd -
 }
 
 websocket-driver-ruby-server  ruby-1.9  6001
@@ -27,12 +23,11 @@ websocket-driver-ruby-server  ruby-2.5  6007
 websocket-driver-ruby-server  ruby-2.6  6008
 websocket-driver-ruby-server  ruby-2.7  6009
 
-cd jruby-1.7/driver
+cd ~/src/ruby/jruby-1.7/driver
 chruby jruby-1.7
 ruby -S bundle exec rake compile
 ruby -J-Xmx2048m --1.9 examples/em_server.rb 6010 &
 ruby -J-Xmx2048m --2.0 examples/em_server.rb 6011 &
-cd -
 
 websocket-driver-ruby-server jruby-9.2 6012
 
@@ -42,10 +37,9 @@ faye-websocket-ruby-server() {
   local port="$2"
   local server="$3"
 
-  cd "$version/websocket"
+  cd ~/src/ruby/$version/websocket
   chruby "$version"
   ruby examples/server.rb "$server" '' "$port" &
-  cd -
 }
 
 faye-websocket-ruby-server  ruby-1.9  thin  7001
@@ -58,20 +52,18 @@ faye-websocket-ruby-server  ruby-2.5  thin  7007
 faye-websocket-ruby-server  ruby-2.6  thin  7008
 faye-websocket-ruby-server  ruby-2.7  thin  7009
 
-cd ruby-2.7/websocket
+cd ~/src/ruby/ruby-2.7/websocket
 chruby ruby-2.7
 ruby examples/server.rb 7010 '' goliath -svp 7010 &
 cd examples
 ruby -S bundle exec passenger start -p 7011 &
-cd ../../..
 
 faye-websocket-ruby-server  ruby-2.7  puma      7012
 faye-websocket-ruby-server  ruby-2.7  rainbows  7013
 
-cd jruby-1.7/websocket
+cd ~/src/ruby/jruby-1.7/websocket
 chruby jruby-1.7
 ruby -J-Xmx2048m --1.9 examples/server.rb 7014 '' puma &
 ruby -J-Xmx2048m --2.0 examples/server.rb 7015 '' puma &
-cd -
 
 faye-websocket-ruby-server jruby-9.2 puma 7016

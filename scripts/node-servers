@@ -1,15 +1,13 @@
 #!/bin/bash
+set -eo pipefail
+source /usr/local/src/nvm/nvm.sh
 
-set -e
-. /usr/local/opt/nvm/nvm.sh
-
-
-cd .code/node/driver
 
 websocket-driver-node-server() {
   local version="$1"
   local port="$2"
 
+  cd ~/src/node/driver
   nvm use "$version"
   node examples/net_server.js "$port" &
 }
@@ -30,12 +28,11 @@ websocket-driver-node-server  13    4013
 websocket-driver-node-server  14    4014
 
 
-cd ../websocket
-
 faye-websocket-node-server() {
   local version="$1"
   local port="$2"
 
+  cd ~/src/node/websocket
   nvm use "$version"
   node examples/server.js "$port" &
 }

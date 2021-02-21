@@ -1,17 +1,15 @@
 #!/bin/bash
+set -eo pipefail
+source /usr/local/src/nvm/nvm.sh
+source /usr/local/share/chruby/chruby.sh
 
-set -e
-. /usr/local/opt/nvm/nvm.sh
-. /usr/local/share/chruby/chruby.sh
 
-
-function node-client() {
+node-client() {
   local version="$1"
 
-  cd .code/node/websocket
+  cd ~/src/node/websocket
   nvm use "$version"
   node examples/autobahn_client.js
-  cd -
 }
 
 for version in 0.8 0.10 0.12 {4..14} ; do
@@ -19,17 +17,16 @@ for version in 0.8 0.10 0.12 {4..14} ; do
 done
 
 
-function ruby-client() {
+ruby-client() {
   local version="$1"
 
-  cd ".code/ruby/$version/websocket"
+  cd ~/src/ruby/$version/websocket
   chruby "$version"
   compile-driver
   ruby examples/autobahn_client.rb
-  cd ../../../..
 }
 
-function compile-driver() {
+compile-driver() {
   cd ../driver
   ruby -S bundle exec rake compile
   cd -
@@ -39,11 +36,10 @@ for version in 1.9 2.{0..7} ; do
   ruby-client "ruby-$version"
 done
 
-cd .code/ruby/jruby-1.7/websocket
+cd ~/src/ruby/jruby-1.7/websocket
 chruby jruby-1.7
 compile-driver
 ruby -J-Xmx2048m --1.9 examples/autobahn_client.rb
 ruby -J-Xmx2048m --2.0 examples/autobahn_client.rb
-cd ../../../..
 
 ruby-client jruby-9.2
