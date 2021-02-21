@@ -6,9 +6,11 @@ apt-get install -y build-essential python2-dev virtualenv
 
 venv_path=/home/vagrant/virtualenv
 
-virtualenv --python 2 "$venv_path"
-source "${venv_path}/bin/activate"
-pip install autobahntestsuite
+if [[ ! -d "$venv_path" ]] ; then
+  virtualenv --python 2 "$venv_path"
+  source "${venv_path}/bin/activate"
+  pip install autobahntestsuite
+fi
 
 bash_profile=/home/vagrant/.bash_aliases
 touch "$bash_profile"
