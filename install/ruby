@@ -61,13 +61,21 @@ EOF
   fi
 }
 
-install-bundler() {
+install-gem() {
   local ruby_version="$1"
-  local bundler_version="$2"
+  local gem_name="$2"
+  local gem_version="$3"
+  local path="/opt/rubies/${ruby_version}/bin"
 
-  SSL_CERT_DIR=/etc/ssl/certs \
-      "/opt/rubies/${ruby_version}/bin/gem" install \
-      bundler -v "$bundler_version"
+  if [[ "$ruby_version" == jruby-* ]] ; then
+    "${path}/ruby" -S gem install "$gem_name" -v "$gem_version"
+  else
+    SSL_CERT_DIR=/etc/ssl/certs "${path}/gem" install "$gem_name" -v "$gem_version"
+  fi
+}
+
+install-bundler() {
+  install-gem "$1" bundler "$2"
 }
 
 install-ruby() {
