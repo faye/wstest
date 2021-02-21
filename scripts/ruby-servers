@@ -22,14 +22,15 @@ websocket-driver-ruby-server  ruby-2.4  6006
 websocket-driver-ruby-server  ruby-2.5  6007
 websocket-driver-ruby-server  ruby-2.6  6008
 websocket-driver-ruby-server  ruby-2.7  6009
+websocket-driver-ruby-server  ruby-3.0  6010
 
 cd ~/src/ruby/jruby-1.7/driver
 chruby jruby-1.7
 ruby -S bundle exec rake compile
-ruby -J-Xmx2048m --1.9 examples/em_server.rb 6010 &
-ruby -J-Xmx2048m --2.0 examples/em_server.rb 6011 &
+ruby -J-Xmx2048m --1.9 examples/em_server.rb 6021 &
+ruby -J-Xmx2048m --2.0 examples/em_server.rb 6022 &
 
-websocket-driver-ruby-server jruby-9.2 6012
+websocket-driver-ruby-server jruby-9.2 6023
 
 
 faye-websocket-ruby-server() {
@@ -51,19 +52,20 @@ faye-websocket-ruby-server  ruby-2.4  thin  7006
 faye-websocket-ruby-server  ruby-2.5  thin  7007
 faye-websocket-ruby-server  ruby-2.6  thin  7008
 faye-websocket-ruby-server  ruby-2.7  thin  7009
+faye-websocket-ruby-server  ruby-3.0  thin  7010
 
-cd ~/src/ruby/ruby-2.7/websocket
-chruby ruby-2.7
-ruby examples/server.rb 7010 '' goliath -svp 7010 &
+cd ~/src/ruby/ruby-3.0/websocket
+chruby ruby-3.0
+ruby examples/server.rb 7011 '' goliath -svp 7011 &
 cd examples
-ruby -S bundle exec passenger start -p 7011 &
+ruby -S bundle exec passenger start -p 7012 &
 
-faye-websocket-ruby-server  ruby-2.7  puma      7012
-faye-websocket-ruby-server  ruby-2.7  rainbows  7013
+faye-websocket-ruby-server  ruby-3.0  puma      7013
+faye-websocket-ruby-server  ruby-3.0  rainbows  7014
 
 cd ~/src/ruby/jruby-1.7/websocket
 chruby jruby-1.7
-ruby -J-Xmx2048m --1.9 examples/server.rb 7014 '' puma &
-ruby -J-Xmx2048m --2.0 examples/server.rb 7015 '' puma &
+ruby -J-Xmx2048m --1.9 examples/server.rb 7021 '' puma &
+ruby -J-Xmx2048m --2.0 examples/server.rb 7022 '' puma &
 
-faye-websocket-ruby-server jruby-9.2 puma 7016
+faye-websocket-ruby-server jruby-9.2 puma 7023

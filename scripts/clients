@@ -12,7 +12,7 @@ node-client() {
   node examples/autobahn_client.js
 }
 
-for version in 0.8 0.10 0.12 {4..14} ; do
+for version in 0.{8,10,12} {4..15} ; do
   node-client "$version"
 done
 
@@ -32,7 +32,7 @@ compile-driver() {
   cd -
 }
 
-for version in 1.9 2.{0..7} ; do
+for version in 1.9 2.{0..7} 3.0 ; do
   ruby-client "ruby-$version"
 done
 
