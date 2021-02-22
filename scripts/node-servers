@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eo pipefail
-source /usr/local/src/nvm/nvm.sh
+source ~/.nvmrc
 
 
 websocket-driver-node-server() {

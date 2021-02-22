@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
-source /usr/local/src/nvm/nvm.sh
-source /usr/local/share/chruby/chruby.sh
+source ~/.nvmrc
+source ~/.rubyrc
 
 
 node-client() {
