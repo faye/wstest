@@ -67,6 +67,6 @@
       { "agent": "faye-websocket jruby-9.2 puma",       "url": "ws://127.0.0.1:7023" }
    ],
    "cases": ["*"],
-   "exclude-cases": ["12.*", "13.*"],
+   "exclude-cases": ["9.*", "12.*", "13.*"],
    "exclude-agent-cases": {}
 }
