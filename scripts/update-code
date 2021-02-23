@@ -74,7 +74,7 @@ RUBY_VERSIONS=(
   ruby-1.9
   ruby-2.{0..7}
   ruby-3.0
-  jruby-{1.7,9.2}
+  jruby-{1.7,9.1,9.2}
 )
 
 install-ruby-gems() {

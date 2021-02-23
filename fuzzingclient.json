@@ -46,7 +46,8 @@
       { "agent": "websocket-driver ruby-3.0",           "url": "ws://127.0.0.1:6010" },
       { "agent": "websocket-driver jruby-1.7 (1.9)",    "url": "ws://127.0.0.1:6021" },
       { "agent": "websocket-driver jruby-1.7 (2.0)",    "url": "ws://127.0.0.1:6022" },
-      { "agent": "websocket-driver jruby-9.2",          "url": "ws://127.0.0.1:6023" },
+      { "agent": "websocket-driver jruby-9.1",          "url": "ws://127.0.0.1:6023" },
+      { "agent": "websocket-driver jruby-9.2",          "url": "ws://127.0.0.1:6024" },
 
       { "agent": "faye-websocket ruby-1.9 thin",        "url": "ws://127.0.0.1:7001" },
       { "agent": "faye-websocket ruby-2.0 thin",        "url": "ws://127.0.0.1:7002" },
@@ -64,7 +65,8 @@
       { "agent": "faye-websocket ruby-3.0 rainbows",    "url": "ws://127.0.0.1:7014" },
       { "agent": "faye-websocket jruby-1.7 (1.9) puma", "url": "ws://127.0.0.1:7021" },
       { "agent": "faye-websocket jruby-1.7 (2.0) puma", "url": "ws://127.0.0.1:7022" },
-      { "agent": "faye-websocket jruby-9.2 puma",       "url": "ws://127.0.0.1:7023" }
+      { "agent": "faye-websocket jruby-9.1 puma",       "url": "ws://127.0.0.1:7023" },
+      { "agent": "faye-websocket jruby-9.2 puma",       "url": "ws://127.0.0.1:7024" }
    ],
    "cases": ["*"],
    "exclude-cases": ["9.*", "12.*", "13.*"],

@@ -30,7 +30,8 @@ ruby -S bundle exec rake compile
 ruby -J-Xmx2048m --1.9 examples/em_server.rb 6021 &
 ruby -J-Xmx2048m --2.0 examples/em_server.rb 6022 &
 
-websocket-driver-ruby-server jruby-9.2 6023
+websocket-driver-ruby-server jruby-9.1 6023
+websocket-driver-ruby-server jruby-9.2 6024
 
 
 faye-websocket-ruby-server() {
@@ -68,4 +69,5 @@ chruby jruby-1.7
 ruby -J-Xmx2048m --1.9 examples/server.rb 7021 '' puma &
 ruby -J-Xmx2048m --2.0 examples/server.rb 7022 '' puma &
 
-faye-websocket-ruby-server jruby-9.2 puma 7023
+faye-websocket-ruby-server jruby-9.1 puma 7023
+faye-websocket-ruby-server jruby-9.2 puma 7024

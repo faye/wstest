@@ -139,4 +139,5 @@ for version in "${RUBY_VERSIONS[@]}" ; do
 done
 
 install-jruby 9.2.14.0 '>= 2'
+install-jruby 9.1.17.0 '>= 2'
 install-jruby 1.7.27 '< 2'
