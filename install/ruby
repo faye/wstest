@@ -111,10 +111,10 @@ install-chruby 0.3.9
 install-openssl '1.0.2u' /usr/local/src/openssl@1.0
 
 RUBY_VERSIONS=(
-  3.0.0
-  2.7.2
-  2.6.6
-  2.5.8
+  3.0.1
+  2.7.3
+  2.6.7
+  2.5.9
   2.4.10
 )
 
