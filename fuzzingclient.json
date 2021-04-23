@@ -17,6 +17,7 @@
       { "agent": "websocket-driver node-v13",           "url": "ws://127.0.0.1:4013" },
       { "agent": "websocket-driver node-v14",           "url": "ws://127.0.0.1:4014" },
       { "agent": "websocket-driver node-v15",           "url": "ws://127.0.0.1:4015" },
+      { "agent": "websocket-driver node-v16",           "url": "ws://127.0.0.1:4016" },
 
       { "agent": "faye-websocket node-v0.8",            "url": "ws://127.0.0.1:5001" },
       { "agent": "faye-websocket node-v0.10",           "url": "ws://127.0.0.1:5002" },
@@ -33,6 +34,7 @@
       { "agent": "faye-websocket node-v13",             "url": "ws://127.0.0.1:5013" },
       { "agent": "faye-websocket node-v14",             "url": "ws://127.0.0.1:5014" },
       { "agent": "faye-websocket node-v15",             "url": "ws://127.0.0.1:5015" },
+      { "agent": "faye-websocket node-v16",             "url": "ws://127.0.0.1:5016" },
 
       { "agent": "websocket-driver ruby-1.9",           "url": "ws://127.0.0.1:6001" },
       { "agent": "websocket-driver ruby-2.0",           "url": "ws://127.0.0.1:6002" },

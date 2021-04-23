@@ -27,6 +27,7 @@ websocket-driver-node-server  12    4012
 websocket-driver-node-server  13    4013
 websocket-driver-node-server  14    4014
 websocket-driver-node-server  15    4015
+websocket-driver-node-server  16    4016
 
 
 faye-websocket-node-server() {
@@ -53,3 +54,4 @@ faye-websocket-node-server  12    5012
 faye-websocket-node-server  13    5013
 faye-websocket-node-server  14    5014
 faye-websocket-node-server  15    5015
+faye-websocket-node-server  16    5016

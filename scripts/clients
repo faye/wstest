@@ -12,7 +12,7 @@ node-client() {
   node examples/autobahn_client.js
 }
 
-for version in 0.{8,10,12} {4..15} ; do
+for version in 0.{8,10,12} {4..16} ; do
   node-client "$version"
 done
 

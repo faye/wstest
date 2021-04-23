@@ -32,6 +32,6 @@ install-nvm 0.37.2
 source /home/vagrant/.nvmrc
 nvm alias default stable
 
-for version in 0.{8,10,12} {4..15} ; do
+for version in 0.{8,10,12} {4..16} ; do
   nvm install "$version"
 done
