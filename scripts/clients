@@ -4,19 +4,6 @@ source ~/.nvmrc
 source ~/.rubyrc
 
 
-node-client() {
-  local version="$1"
-
-  cd ~/src/node/websocket
-  nvm use "$version"
-  node examples/autobahn_client.js
-}
-
-for version in 0.{8,10,12} {4..16} ; do
-  node-client "$version"
-done
-
-
 ruby-client() {
   local version="$1"
 
@@ -32,10 +19,6 @@ compile-driver() {
   cd -
 }
 
-for version in 1.9 2.{0..7} 3.0 ; do
-  ruby-client "ruby-$version"
-done
-
 cd ~/src/ruby/jruby-1.7/websocket
 chruby jruby-1.7
 compile-driver
@@ -44,3 +27,20 @@ ruby -J-Xmx2048m --2.0 examples/autobahn_client.rb
 
 ruby-client jruby-9.1
 ruby-client jruby-9.2
+
+for version in 1.9 2.{0..7} 3.0 ; do
+  ruby-client "ruby-$version"
+done
+
+
+node-client() {
+  local version="$1"
+
+  cd ~/src/node/websocket
+  nvm use "$version"
+  node examples/autobahn_client.js
+}
+
+for version in 0.{8,10,12} {4..16} ; do
+  node-client "$version"
+done
