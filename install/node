@@ -1,37 +1,36 @@
 #!/bin/bash
-set -eo pipefail
 
-install-nvm() {
-  local version="$1"
+NVM_VERSION='v0.39.5'
+NVM_DIR=~/src/node
+NODE_VERSIONS=(0.{8,10,12} $(seq 4 2 20))
 
-  cd /usr/local/src
-  [[ -d nvm ]] || git clone git://github.com/nvm-sh/nvm.git
-  cd nvm
-  git fetch
-  git checkout "v${version}"
+BASHRC=~/.bash_aliases
 
-  local bash_profile=/home/vagrant/.bash_aliases
-  touch "$bash_profile"
+sudo apt-get update
+sudo apt-get install -y build-essential
 
-  if ! grep -q nvmrc "$bash_profile" ; then
-    cat > /home/vagrant/.nvmrc <<-EOF
-      export NVM_DIR=/opt/node
-      source /usr/local/src/nvm/nvm.sh
+mkdir -p "$NVM_DIR"
+cd ~/src
+if [[ ! -d nvm ]] ; then
+  git clone https://github.com/nvm-sh/nvm.git
+fi
+cd nvm
+git fetch
+git checkout "$NVM_VERSION"
+
+touch "$BASHRC"
+
+if [[ ! -f ~/.nvmrc ]] ; then
+  cat > ~/.nvmrc <<-EOF
+    export NVM_DIR=$NVM_DIR
+    source ~/src/nvm/nvm.sh
 EOF
-    echo 'source ~/.nvmrc' >> "$bash_profile"
-  fi
+  echo 'source ~/.nvmrc' >> "$BASHRC"
+fi
 
-  mkdir -p /opt/node
-}
+source ~/.nvmrc
+nvm alias default 'lts/*'
 
-apt-get update
-apt-get install -y build-essential
-mkdir -p /usr/local/src
-
-install-nvm 0.37.2
-source /home/vagrant/.nvmrc
-nvm alias default stable
-
-for version in 0.{8,10,12} {4..16} ; do
+for version in "${NODE_VERSIONS[@]}" ; do
   nvm install "$version"
 done
