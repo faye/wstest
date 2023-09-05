@@ -1,20 +1,29 @@
 #!/bin/bash
-set -eo pipefail
 
-apt-get update
-apt-get install -y build-essential python2-dev virtualenv
+# This install script has been tested on Ubuntu 20.04. More recent releases
+# have openssl versions that Python's cryptography package do not build
+# against, when using a version that will install on Python 2.7.
 
-venv_path=/home/vagrant/virtualenv
+VENV_PATH="$HOME/venv"
+BASHRC="$HOME/.bash_aliases"
 
-if [[ ! -d "$venv_path" ]] ; then
-  virtualenv --python 2 "$venv_path"
-  source "${venv_path}/bin/activate"
-  pip install autobahntestsuite
+sudo apt-get update
+sudo apt-get install -y \
+    build-essential \
+    libffi-dev \
+    libssl-dev \
+    python2-dev \
+    virtualenv
+
+if [[ ! -d "$VENV_PATH" ]] ; then
+  virtualenv --python 2 "$VENV_PATH"
+  source "${VENV_PATH}/bin/activate"
+  pip install typing
+  pip install --no-use-pep517 -r requirements.txt
 fi
 
-bash_profile=/home/vagrant/.bash_aliases
-touch "$bash_profile"
+touch "$BASHRC"
 
-if ! grep -q virtualenv "$bash_profile" ; then
-  echo 'source ~/virtualenv/bin/activate' >> "$bash_profile"
+if ! grep -q venv "$BASHRC" ; then
+  echo 'source ~/venv/bin/activate' >> "$BASHRC"
 fi
