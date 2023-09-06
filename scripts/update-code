@@ -4,19 +4,21 @@ source ~/.nvmrc
 source ~/.rubyrc
 
 
-mkdir -p ~/src/{node,ruby}
+mkdir -p ~/repo/{node,ruby}
+PATCH_DIR="$PWD/patches"
 
-checkout() {
+
+checkout () {
   local dir="$1"
   local repo="$2"
-  local patch="/vagrant/patches/$repo.diff"
+  local patch="$PATCH_DIR/$repo.diff"
 
-  [[ -d "$dir" ]] || git clone "git://github.com/faye/$repo.git" "$dir"
+  [[ -d "$dir" ]] || git clone "https://github.com/faye/$repo.git" "$dir"
 
   cd "$dir"
   git fetch origin
-  git clean -fd
   git reset --hard @{u}
+  git clean -ffdx
 
   [[ -f "$patch" ]] && git apply "$patch"
 
@@ -24,9 +26,9 @@ checkout() {
 }
 
 
-cd ~/src/node
+cd ~/repo/node
 
-install-node-modules() {
+install-node-modules () {
   local dir="$1"
 
   cd "$dir"
@@ -46,7 +48,7 @@ install-node-modules extensions
 install-node-modules permessage-deflate
 
 
-link-repo() {
+link-repo () {
   local pkg="$1"
   local dir="$2"
 
@@ -68,16 +70,17 @@ link-repo websocket-extensions extensions
 cd -
 
 
-cd ~/src/ruby
+cd ~/repo/ruby
 
 RUBY_VERSIONS=(
-  ruby-1.9
-  ruby-2.{0..7}
-  ruby-3.0
-  jruby-{1.7,9.1,9.2}
+  # ruby-1.9
+  ruby-2.{1..7}
+  ruby-3.{0..2}
+  # jruby-1.7
+  jruby-9.{1..4}
 )
 
-install-ruby-gems() {
+install-ruby-gems () {
   local dir="$1"
 
   cd "$dir"
