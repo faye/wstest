@@ -7,7 +7,11 @@ RUBY_INSTALL_VERSION='0.9.1'
 BASHRC=~/.bash_aliases
 
 sudo apt-get update
-sudo apt-get install -y build-essential libcurl4-openssl-dev
+sudo apt-get install -y \
+    build-essential \
+    libcurl4-openssl-dev \
+    libpcre3-dev
+
 mkdir -p ~/src/rubies
 
 install-ruby-install () {

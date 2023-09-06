@@ -3,79 +3,83 @@ set -eo pipefail
 source ~/.rubyrc
 
 
-compile-driver() {
+compile-driver () {
   cd ../driver
   ruby -S bundle exec rake compile
   cd -
 }
 
 
-websocket-driver-ruby-server() {
+websocket-driver-ruby-server () {
   local version="$1"
   local port="$2"
 
-  cd ~/src/ruby/$version/driver
+  cd ~/repo/ruby/$version/driver
   chruby "$version"
   compile-driver
   ruby examples/em_server.rb "$port" &
 }
 
-websocket-driver-ruby-server  ruby-1.9  6001
-websocket-driver-ruby-server  ruby-2.0  6002
-websocket-driver-ruby-server  ruby-2.1  6003
-websocket-driver-ruby-server  ruby-2.2  6004
-websocket-driver-ruby-server  ruby-2.3  6005
-websocket-driver-ruby-server  ruby-2.4  6006
-websocket-driver-ruby-server  ruby-2.5  6007
-websocket-driver-ruby-server  ruby-2.6  6008
-websocket-driver-ruby-server  ruby-2.7  6009
-websocket-driver-ruby-server  ruby-3.0  6010
+websocket-driver-ruby-server  ruby-2.1  6001
+websocket-driver-ruby-server  ruby-2.2  6002
+websocket-driver-ruby-server  ruby-2.3  6003
+websocket-driver-ruby-server  ruby-2.4  6004
+websocket-driver-ruby-server  ruby-2.5  6005
+websocket-driver-ruby-server  ruby-2.6  6006
+websocket-driver-ruby-server  ruby-2.7  6007
+websocket-driver-ruby-server  ruby-3.0  6008
+websocket-driver-ruby-server  ruby-3.1  6009
+websocket-driver-ruby-server  ruby-3.2  6010
 
-cd ~/src/ruby/jruby-1.7/driver
-chruby jruby-1.7
-ruby -S bundle exec rake compile
-ruby -J-Xmx2048m --1.9 examples/em_server.rb 6021 &
-ruby -J-Xmx2048m --2.0 examples/em_server.rb 6022 &
+# cd ~/repo/ruby/jruby-1.7/driver
+# chruby jruby-1.7
+# ruby -S bundle exec rake compile
+# ruby -J-Xmx2048m --1.9 examples/em_server.rb 6021 &
+# ruby -J-Xmx2048m --2.0 examples/em_server.rb 6022 &
 
 websocket-driver-ruby-server jruby-9.1 6023
 websocket-driver-ruby-server jruby-9.2 6024
+websocket-driver-ruby-server jruby-9.3 6025
+websocket-driver-ruby-server jruby-9.4 6026
 
 
-faye-websocket-ruby-server() {
+faye-websocket-ruby-server () {
   local version="$1"
   local server="$2"
   local port="$3"
 
-  cd ~/src/ruby/$version/websocket
+  cd ~/repo/ruby/$version/websocket
   chruby "$version"
   compile-driver
   ruby examples/server.rb "$port" '' "$server" &
 }
 
-faye-websocket-ruby-server  ruby-1.9  thin  7001
-faye-websocket-ruby-server  ruby-2.0  thin  7002
-faye-websocket-ruby-server  ruby-2.1  thin  7003
-faye-websocket-ruby-server  ruby-2.2  thin  7004
-faye-websocket-ruby-server  ruby-2.3  thin  7005
-faye-websocket-ruby-server  ruby-2.4  thin  7006
-faye-websocket-ruby-server  ruby-2.5  thin  7007
-faye-websocket-ruby-server  ruby-2.6  thin  7008
-faye-websocket-ruby-server  ruby-2.7  thin  7009
-faye-websocket-ruby-server  ruby-3.0  thin  7010
+faye-websocket-ruby-server  ruby-2.1  thin  7001
+faye-websocket-ruby-server  ruby-2.2  thin  7002
+faye-websocket-ruby-server  ruby-2.3  thin  7003
+faye-websocket-ruby-server  ruby-2.4  thin  7004
+faye-websocket-ruby-server  ruby-2.5  thin  7005
+faye-websocket-ruby-server  ruby-2.6  thin  7006
+faye-websocket-ruby-server  ruby-2.7  thin  7007
+faye-websocket-ruby-server  ruby-3.0  thin  7008
+faye-websocket-ruby-server  ruby-3.1  thin  7009
+faye-websocket-ruby-server  ruby-3.2  thin  7010
 
-cd ~/src/ruby/ruby-3.0/websocket
-chruby ruby-3.0
+cd ~/repo/ruby/ruby-3.1/websocket
+chruby ruby-3.1
 ruby examples/server.rb 7011 '' goliath -svp 7011 &
 cd examples
 ruby -S bundle exec passenger start -p 7012 &
 
-faye-websocket-ruby-server  ruby-3.0  puma      7013
-faye-websocket-ruby-server  ruby-3.0  rainbows  7014
+faye-websocket-ruby-server  ruby-3.2  puma      7013
+faye-websocket-ruby-server  ruby-3.2  rainbows  7014
 
-cd ~/src/ruby/jruby-1.7/websocket
-chruby jruby-1.7
-ruby -J-Xmx2048m --1.9 examples/server.rb 7021 '' puma &
-ruby -J-Xmx2048m --2.0 examples/server.rb 7022 '' puma &
+# cd ~/repo/ruby/jruby-1.7/websocket
+# chruby jruby-1.7
+# ruby -J-Xmx2048m --1.9 examples/server.rb 7021 '' puma &
+# ruby -J-Xmx2048m --2.0 examples/server.rb 7022 '' puma &
 
 faye-websocket-ruby-server jruby-9.1 puma 7023
-faye-websocket-ruby-server jruby-9.2 puma 7024
+# faye-websocket-ruby-server jruby-9.2 puma 7024
+# faye-websocket-ruby-server jruby-9.3 puma 7025
+# faye-websocket-ruby-server jruby-9.4 puma 7026
