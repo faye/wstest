@@ -1,7 +1,57 @@
 #!/bin/bash
 set -eo pipefail
 
-install-openssl() {
+CHRUBY_VERSION='0.3.9'
+RUBY_INSTALL_VERSION='0.9.1'
+
+BASHRC=~/.bash_aliases
+
+sudo apt-get update
+sudo apt-get install -y build-essential libcurl4-openssl-dev
+mkdir -p ~/src/rubies
+
+install-ruby-install () {
+  local version="$1"
+  local filename="ruby-install-${version}.tar.gz" 
+  local url="https://github.com/postmodern/ruby-install/archive/v${version}.tar.gz"
+
+  cd ~/src
+  [[ -f "$filename" ]] && return
+
+  wget -O "$filename" "$url"
+  tar -xzvf "$filename"
+
+  cd "ruby-install-${version}"
+  sudo make install
+}
+
+install-chruby () {
+  local version="$1"
+  local filename="chruby-${version}.tar.gz"
+  local url="https://github.com/postmodern/chruby/archive/v${version}.tar.gz"
+
+  cd ~/src
+  [[ -f "$filename" ]] && return
+
+  wget -O "$filename" "$url"
+  tar -xzvf "$filename"
+
+  cd "chruby-${version}"
+  sudo make install
+
+  touch "$BASHRC"
+
+  if [[ ! -f ~/.rubyrc ]] ; then
+    cat > ~/.rubyrc <<-EOF
+      export SSL_CERT_DIR=/etc/ssl/certs
+      source /usr/local/share/chruby/chruby.sh
+      RUBIES+=(~/src/rubies/*)
+EOF
+    echo 'source ~/.rubyrc' >> "$BASHRC"
+  fi
+}
+
+install-openssl () {
   local version="$1"
   local prefix="$2"
   [[ -d "$prefix" ]] && return
@@ -9,7 +59,7 @@ install-openssl() {
   local filename="openssl-${version}.tar.gz"
   local url="https://www.openssl.org/source/${filename}"
 
-  cd /usr/local/src
+  cd ~/src
   wget -O "$filename" "$url"
   tar -xzvf "$filename"
 
@@ -18,102 +68,62 @@ install-openssl() {
   make install INSTALL_PREFIX="$prefix"
 }
 
-install-ruby-install() {
+install-ruby () {
   local version="$1"
-  local filename="ruby-install-${version}.tar.gz" 
-  local url="https://github.com/postmodern/ruby-install/archive/v${version}.tar.gz"
+  local ssl_dir="$2"
 
-  cd /usr/local/src
-  [[ -f "$filename" ]] && return
+  local pathname=~/src/rubies/ruby-${version}
+  [[ -d "$pathname" ]] && return
 
-  wget -O "$filename" "$url"
-  tar -xzvf "$filename"
-
-  cd "ruby-install-${version}"
-  make install
-
-  mkdir -p /opt/rubies
-}
-
-install-chruby() {
-  local version="$1"
-  local filename="chruby-${version}.tar.gz"
-  local url="https://github.com/postmodern/chruby/archive/v${version}.tar.gz"
-
-  cd /usr/local/src
-  [[ -f "$filename" ]] && return
-
-  wget -O "$filename" "$url"
-  tar -xzvf "$filename"
-
-  cd "chruby-${version}"
-  make install
-
-  local bash_profile=/home/vagrant/.bash_aliases
-  touch "$bash_profile"
-
-  if ! grep -q rubyrc "$bash_profile" ; then
-    cat > /home/vagrant/.rubyrc <<-EOF
-      export SSL_CERT_DIR=/etc/ssl/certs
-      source /usr/local/share/chruby/chruby.sh
-EOF
-    echo 'source ~/.rubyrc' >> "$bash_profile"
+  if [[ -n "$ssl_dir" ]] ; then
+    ruby-install -r ~/src/rubies ruby "$version" -- --with-openssl-dir="$ssl_dir"
+    install-bundler "ruby-${version}" '< 2'
+  else
+    ruby-install -r ~/src/rubies ruby "$version"
   fi
 }
 
-install-gem() {
+install-jruby () {
+  local version="$1"
+  local bundler_version="$2"
+
+  local pathname=~/src/rubies/jruby-${version}
+  [[ -d "$pathname" ]] && return
+
+  ruby-install -r ~/src/rubies jruby "$version"
+
+  if [[ -n "$bundler_version" ]] ; then
+    install-bundler "jruby-${version}" "$bundler_version"
+  fi
+}
+
+install-bundler () {
+  install-gem "$1" bundler "$2"
+}
+
+install-gem () {
   local ruby_version="$1"
   local gem_name="$2"
   local gem_version="$3"
-  local path="/opt/rubies/${ruby_version}/bin"
+  local path=~/src/rubies/${ruby_version}/bin
 
   if [[ "$ruby_version" == jruby-* ]] ; then
-    "${path}/ruby" -S gem install "$gem_name" -v "$gem_version"
+    "${path}/ruby" -J-Xmx1024M -S gem install "$gem_name" -v "$gem_version"
   else
     SSL_CERT_DIR=/etc/ssl/certs "${path}/gem" install "$gem_name" -v "$gem_version"
   fi
 }
 
-install-bundler() {
-  install-gem "$1" bundler "$2"
-}
-
-install-ruby() {
-  local version="$1"
-  local pathname="/opt/rubies/ruby-${version}"
-  [[ -d "$pathname" ]] && return
-
-  if [[ $# -eq 2 ]] ; then
-    ruby-install -r /opt/rubies ruby "$version" -- --with-openssl-dir="$2"
-    install-bundler "ruby-${version}" '< 2'
-  else
-    ruby-install -r /opt/rubies ruby "$version"
-  fi
-}
-
-install-jruby() {
-  local version="$1"
-  local bundler_version="$2"
-
-  local pathname="/opt/rubies/jruby-${version}"
-  [[ -d "$pathname" ]] && return
-
-  ruby-install -r /opt/rubies jruby "$version"
-  install-bundler "jruby-${version}" "$bundler_version"
-}
-
-apt-get update
-apt-get install -y build-essential
-mkdir -p /usr/local/src
-
-install-ruby-install 0.8.1
-install-chruby 0.3.9
-install-openssl '1.0.2u' /usr/local/src/openssl@1.0
+install-ruby-install "$RUBY_INSTALL_VERSION"
+install-chruby "$CHRUBY_VERSION"
+install-openssl '1.0.2u' ~/src/openssl@1.0
 
 RUBY_VERSIONS=(
-  3.0.1
-  2.7.3
-  2.6.7
+  3.2.2
+  3.1.4
+  3.0.6
+  2.7.8
+  2.6.10
   2.5.9
   2.4.10
 )
@@ -130,14 +140,16 @@ RUBY_VERSIONS=(
   2.3.8
   2.2.10
   2.1.10
-  2.0.0-p648
-  1.9.3-p551
+  # 2.0.0-p648
+  # 1.9.3-p551
 )
 
 for version in "${RUBY_VERSIONS[@]}" ; do
-  install-ruby "$version" /usr/local/src/openssl@1.0/usr/local/ssl
+  install-ruby "$version" ~/src/openssl@1.0/usr/local/ssl
 done
 
-install-jruby 9.2.14.0 '>= 2'
-install-jruby 9.1.17.0 '>= 2'
+install-jruby 9.4.3.0
+install-jruby 9.3.10.0
+install-jruby 9.2.21.0 '< 2.4'
+install-jruby 9.1.17.0 '< 2.4'
 install-jruby 1.7.27 '< 2'
