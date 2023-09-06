@@ -3,55 +3,41 @@ set -eo pipefail
 source ~/.nvmrc
 
 
-websocket-driver-node-server() {
+websocket-driver-node-server () {
   local version="$1"
   local port="$2"
 
-  cd ~/src/node/driver
+  cd ~/repo/node/driver
   nvm use "$version"
   node examples/net_server.js "$port" &
 }
 
-websocket-driver-node-server  0.8   4001
-websocket-driver-node-server  0.10  4002
-websocket-driver-node-server  0.12  4003
-websocket-driver-node-server  4     4004
-websocket-driver-node-server  5     4005
-websocket-driver-node-server  6     4006
-websocket-driver-node-server  7     4007
-websocket-driver-node-server  8     4008
-websocket-driver-node-server  9     4009
-websocket-driver-node-server  10    4010
-websocket-driver-node-server  11    4011
-websocket-driver-node-server  12    4012
-websocket-driver-node-server  13    4013
-websocket-driver-node-server  14    4014
-websocket-driver-node-server  15    4015
-websocket-driver-node-server  16    4016
+websocket-driver-node-server  4     4001
+websocket-driver-node-server  6     4002
+websocket-driver-node-server  8     4003
+websocket-driver-node-server  10    4004
+websocket-driver-node-server  12    4005
+websocket-driver-node-server  14    4006
+websocket-driver-node-server  16    4007
+websocket-driver-node-server  18    4008
+websocket-driver-node-server  20    4009
 
 
-faye-websocket-node-server() {
+faye-websocket-node-server () {
   local version="$1"
   local port="$2"
 
-  cd ~/src/node/websocket
+  cd ~/repo/node/websocket
   nvm use "$version"
   node examples/server.js "$port" &
 }
 
-faye-websocket-node-server  0.8   5001
-faye-websocket-node-server  0.10  5002
-faye-websocket-node-server  0.12  5003
-faye-websocket-node-server  4     5004
-faye-websocket-node-server  5     5005
-faye-websocket-node-server  6     5006
-faye-websocket-node-server  7     5007
-faye-websocket-node-server  8     5008
-faye-websocket-node-server  9     5009
-faye-websocket-node-server  10    5010
-faye-websocket-node-server  11    5011
-faye-websocket-node-server  12    5012
-faye-websocket-node-server  13    5013
-faye-websocket-node-server  14    5014
-faye-websocket-node-server  15    5015
-faye-websocket-node-server  16    5016
+faye-websocket-node-server  4     5001
+faye-websocket-node-server  6     5002
+faye-websocket-node-server  8     5003
+faye-websocket-node-server  10    5004
+faye-websocket-node-server  12    5005
+faye-websocket-node-server  14    5006
+faye-websocket-node-server  16    5007
+faye-websocket-node-server  18    5008
+faye-websocket-node-server  20    5009
