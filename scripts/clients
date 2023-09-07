@@ -4,43 +4,44 @@ source ~/.nvmrc
 source ~/.rubyrc
 
 
-ruby-client() {
+ruby-client () {
   local version="$1"
 
-  cd ~/src/ruby/$version/websocket
+  cd ~/repo/ruby/$version/websocket
   chruby "$version"
   compile-driver
   ruby examples/autobahn_client.rb
 }
 
-compile-driver() {
+compile-driver () {
   cd ../driver
   ruby -S bundle exec rake compile
   cd -
 }
 
-cd ~/src/ruby/jruby-1.7/websocket
-chruby jruby-1.7
-compile-driver
-ruby -J-Xmx2048m --1.9 examples/autobahn_client.rb
-ruby -J-Xmx2048m --2.0 examples/autobahn_client.rb
+# cd ~/repo/ruby/jruby-1.7/websocket
+# chruby jruby-1.7
+# compile-driver
+# ruby -J-Xmx2048m --1.9 examples/autobahn_client.rb
+# ruby -J-Xmx2048m --2.0 examples/autobahn_client.rb
 
-ruby-client jruby-9.1
-ruby-client jruby-9.2
+for version in 9.{1..4} ; do
+  ruby-client "jruby-$version"
+done
 
-for version in 1.9 2.{0..7} 3.0 ; do
+for version in 2.{1..7} 3.{0..2} ; do
   ruby-client "ruby-$version"
 done
 
 
-node-client() {
+node-client () {
   local version="$1"
 
-  cd ~/src/node/websocket
+  cd ~/repo/node/websocket
   nvm use "$version"
   node examples/autobahn_client.js
 }
 
-for version in 0.{8,10,12} {4..16} ; do
+for version in $(seq 4 2 20) ; do
   node-client "$version"
 done
