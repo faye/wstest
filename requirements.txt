@@ -1,3 +1,0 @@
-autobahntestsuite
-cryptography == 2.6.1
-wsaccel == 0.6.3

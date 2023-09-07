@@ -18,8 +18,8 @@ sudo apt-get install -y \
 if [[ ! -d "$VENV_PATH" ]] ; then
   virtualenv --python 2 "$VENV_PATH"
   source "${VENV_PATH}/bin/activate"
-  pip install typing
-  pip install --no-use-pep517 -r requirements.txt
+  pip install pipenv
+  pipenv install
 fi
 
 touch "$BASHRC"
