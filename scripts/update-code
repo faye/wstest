@@ -13,14 +13,18 @@ checkout () {
   local repo="$2"
   local patch="$PATCH_DIR/$repo.diff"
 
-  [[ -d "$dir" ]] || git clone "https://github.com/faye/$repo.git" "$dir"
+  if [[ ! -d "$dir" ]] ; then
+    git clone "https://github.com/faye/$repo.git" "$dir"
+  fi
 
   cd "$dir"
   git fetch origin
   git reset --hard @{u}
   git clean -ffdx
 
-  [[ -f "$patch" ]] && git apply "$patch"
+  if [[ -f "$patch" ]] ; then
+    git apply "$patch"
+  fi
 
   cd -
 }
