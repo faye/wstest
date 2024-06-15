@@ -42,6 +42,6 @@ node-client () {
   node examples/autobahn_client.js
 }
 
-for version in $(seq 4 2 20) ; do
+for version in $(seq 4 2 22) ; do
   node-client "$version"
 done
