@@ -123,9 +123,10 @@ install-chruby "$CHRUBY_VERSION"
 install-openssl '1.0.2u' ~/src/openssl@1.0
 
 RUBY_VERSIONS=(
-  3.2.2
-  3.1.4
-  3.0.6
+  3.3.3
+  3.2.4
+  3.1.5
+  3.0.7
   2.7.8
   2.6.10
   2.5.9
