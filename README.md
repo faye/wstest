@@ -12,45 +12,70 @@ The Faye WebSocket stack consists of these modules:
 - permessage-deflate: [node](https://github.com/faye/permessage-deflate-node),
   [ruby](https://github.com/faye/permessage-deflate-ruby)
 
-These are all tested using [Autobahn](http://autobahn.ws/testsuite/), an
-exhaustive black-box test suite for WebSocket servers and clients.
+These are all tested using
+[Autobahn](https://github.com/crossbario/autobahn-testsuite), an exhaustive
+black-box test suite for WebSocket servers and clients. The Autobahn test suite
+is a Python 2 application and can be tricky to get running; the configuration
+here is intended to give the best chance of getting everything installed
+correctly.
 
-This repo contains everything we use to run the test suite for all the
-combinations of languages, versions and app servers we support. It is very much
-in a "works on my machines" state, and assumes you have
-[nvm](https://github.com/creationix/nvm) and
-[chruby](https://github.com/postmodern/chruby) installed in the canonical
-locations, and that you have all the required Node and Ruby versions installed.
+To get started, clone this repository and `cd` into the clone.
 
-To get set up:
+    $ git clone https://github.com/faye/wstest.git
+    $ cd wstest
 
-    git clone git://github.com/faye/wstest.git
-    cd wstest
-    pipenv install
+You will need an Ubuntu machine to install all the dependencies and run the
+tests. Specifically, Ubuntu 20.04 is required for all the Python dependencies to
+install correctly.
 
-To update all the WebSocket modules from source and set up their dependencies:
+You can get a VM from a cloud provider or use
+[Multipass](https://multipass.run/) to set one up locally. Launch an instance
+and mount the `wstest` directory into it.
 
-    ./scripts/update-code
+    $ multipass launch 20.04 --name wsvm --disk 20G --memory 4G
+    $ multipass mount . wsvm:wstest
 
-To run the server tests, first start up the test servers:
+Then, shell into the machine and navigate to the mounted `wstest` directory.
 
-    ./scripts/node-servers
-    ./scripts/ruby-servers
+    $ multipass shell wsvm
+    $ cd wstest
 
-Then, in a pipenv shell, run the wstest client:
+This repo contains scripts for installing everything needed to run the tests;
+run them in the following order:
 
-    pipenv shell
-    wstest -m fuzzingclient
+    $ ./install/autobahn
+    $ ./install/node
+    $ ./install/ruby
 
-Once the tests are complete, shut down all the test servers:
+These scripts may update the shell configuration, so you should exit and
+re-enter the VM after running them to reload the shell:
 
-    killall node ruby java
+    $ exit
+    $ multipass shell wsvm
+    $ cd wstest
 
-To run the client tests, start the wstest server in a pipenv shell:
+Next, you need to download all the code for the Faye packages and install their
+dependencies, by running this script:
 
-    pipenv shell
-    wstest -m fuzzingserver
+    $ ./scripts/update-code
 
-Then, run the test clients:
+If everything completed successfully you should now be able to run the tests
+themselves. To run the client tests, start the `wstest` server and then run the
+client test script:
 
-    ./scripts/clients
+    $ wstest -m fuzzingserver
+    $ ./scripts/clients
+
+To run the server tests, you first need to start all the Node and Ruby servers
+running:
+
+    $ ./scripts/node-servers
+    $ ./scripts/ruby-servers
+
+Once the servers are all started, run the `wstest` client:
+
+    $ wstest -m fuzzingclient
+
+Once this has completed you can stop all the servers by killing them all:
+
+    $ killall node ruby java
