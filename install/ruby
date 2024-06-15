@@ -3,16 +3,18 @@ set -eo pipefail
 
 CHRUBY_VERSION='0.3.9'
 RUBY_INSTALL_VERSION='0.9.1'
+RUBY_DIR=~/src/rubies
 
 BASHRC=~/.bash_aliases
 
 sudo apt-get update
+
 sudo apt-get install -y \
     build-essential \
     libcurl4-openssl-dev \
     libpcre3-dev
 
-mkdir -p ~/src/rubies
+mkdir -p "$RUBY_DIR"
 
 install-ruby-install () {
   local version="$1"
@@ -49,7 +51,7 @@ install-chruby () {
     cat > ~/.rubyrc <<-EOF
       export SSL_CERT_DIR=/etc/ssl/certs
       source /usr/local/share/chruby/chruby.sh
-      RUBIES+=(~/src/rubies/*)
+      RUBIES+=(${RUBY_DIR}/*)
 EOF
     echo 'source ~/.rubyrc' >> "$BASHRC"
   fi
@@ -76,14 +78,14 @@ install-ruby () {
   local version="$1"
   local ssl_dir="$2"
 
-  local pathname=~/src/rubies/ruby-${version}
+  local pathname="${RUBY_DIR}/ruby-${version}"
   [[ -d "$pathname" ]] && return
 
   if [[ -n "$ssl_dir" ]] ; then
-    ruby-install -r ~/src/rubies ruby "$version" -- --with-openssl-dir="$ssl_dir"
+    ruby-install -r "$RUBY_DIR" ruby "$version" -- --with-openssl-dir="$ssl_dir"
     install-bundler "ruby-${version}" '< 2'
   else
-    ruby-install -r ~/src/rubies ruby "$version"
+    ruby-install -r "$RUBY_DIR" ruby "$version"
   fi
 }
 
@@ -91,10 +93,10 @@ install-jruby () {
   local version="$1"
   local bundler_version="$2"
 
-  local pathname=~/src/rubies/jruby-${version}
+  local pathname="${RUBY_DIR}/jruby-${version}"
   [[ -d "$pathname" ]] && return
 
-  ruby-install -r ~/src/rubies jruby "$version"
+  ruby-install -r "$RUBY_DIR" jruby "$version"
 
   if [[ -n "$bundler_version" ]] ; then
     install-bundler "jruby-${version}" "$bundler_version"
@@ -109,7 +111,7 @@ install-gem () {
   local ruby_version="$1"
   local gem_name="$2"
   local gem_version="$3"
-  local path=~/src/rubies/${ruby_version}/bin
+  local path="${RUBY_DIR}/${ruby_version}/bin"
 
   if [[ "$ruby_version" == jruby-* ]] ; then
     "${path}/ruby" -J-Xmx1024M -S gem install "$gem_name" -v "$gem_version"
