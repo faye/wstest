@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eo pipefail
-source ~/.rubyrc
+source shellenv
 
 
 compile-driver () {
@@ -14,7 +14,7 @@ websocket-driver-ruby-server () {
   local version="$1"
   local port="$2"
 
-  cd ~/repo/ruby/$version/driver
+  cd "$CODE_DIR/ruby/$version/driver"
   chruby "$version"
   compile-driver
   ruby examples/em_server.rb "$port" &
@@ -33,7 +33,7 @@ websocket-driver-ruby-server  ruby-3.2  6110
 websocket-driver-ruby-server  ruby-3.3  6111
 websocket-driver-ruby-server  ruby-3.4  6112
 
-# cd ~/repo/ruby/jruby-1.7/driver
+# cd "$CODE_DIR/ruby/jruby-1.7/driver"
 # chruby jruby-1.7
 # ruby -S bundle exec rake compile
 # ruby -J-Xmx2048m --1.9 examples/em_server.rb 6201 &
@@ -50,7 +50,7 @@ faye-websocket-ruby-server () {
   local server="$2"
   local port="$3"
 
-  cd ~/repo/ruby/$version/websocket
+  cd "$CODE_DIR/ruby/$version/websocket"
   chruby "$version"
   compile-driver
   ruby examples/server.rb "$port" '' "$server" &
@@ -69,7 +69,7 @@ faye-websocket-ruby-server  ruby-3.2  thin  7110
 faye-websocket-ruby-server  ruby-3.3  thin  7111
 faye-websocket-ruby-server  ruby-3.4  thin  7112
 
-cd ~/repo/ruby/ruby-3.1/websocket
+cd "$CODE_DIR/ruby/ruby-3.1/websocket"
 chruby ruby-3.1
 ruby examples/server.rb 7201 '' goliath -svp 7201 &
 cd examples
@@ -78,7 +78,7 @@ ruby -S bundle exec passenger start -p 7202 &
 faye-websocket-ruby-server  ruby-3.2  puma      7203
 faye-websocket-ruby-server  ruby-3.2  rainbows  7204
 
-# cd ~/repo/ruby/jruby-1.7/websocket
+# cd "$CODE_DIR/ruby/jruby-1.7/websocket"
 # chruby jruby-1.7
 # ruby -J-Xmx2048m --1.9 examples/server.rb 7301 '' puma &
 # ruby -J-Xmx2048m --2.0 examples/server.rb 7302 '' puma &

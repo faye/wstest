@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eo pipefail
-source ~/.nvmrc
+source shellenv
 
 
 websocket-driver-node-server () {
   local version="$1"
   local port="$2"
 
-  cd ~/repo/node/driver
+  cd "$CODE_DIR/node/driver"
   nvm use "$version"
   node examples/net_server.js "$port" &
 }
@@ -29,7 +29,7 @@ faye-websocket-node-server () {
   local version="$1"
   local port="$2"
 
-  cd ~/repo/node/websocket
+  cd "$CODE_DIR/node/websocket"
   nvm use "$version"
   node examples/server.js "$port" &
 }

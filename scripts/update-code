@@ -1,11 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eo pipefail
-source ~/.nvmrc
-source ~/.rubyrc
+source shellenv
 
 
-mkdir -p ~/repo/{node,ruby}
 PATCH_DIR="$PWD/patches"
+mkdir -p "$CODE_DIR"/{node,ruby}
 
 
 checkout () {
@@ -30,7 +29,7 @@ checkout () {
 }
 
 
-cd ~/repo/node
+cd "$CODE_DIR/node"
 
 install-node-modules () {
   local dir="$1"
@@ -74,7 +73,7 @@ link-repo websocket-extensions extensions
 cd -
 
 
-cd ~/repo/ruby
+cd "$CODE_DIR/ruby"
 
 RUBY_VERSIONS=(
   # ruby-1.9

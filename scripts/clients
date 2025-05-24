@@ -1,13 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eo pipefail
-source ~/.nvmrc
-source ~/.rubyrc
+source shellenv
 
 
 ruby-client () {
   local version="$1"
 
-  cd ~/repo/ruby/$version/websocket
+  cd "$CODE_DIR/ruby/$version/websocket"
   chruby "$version"
   compile-driver
   ruby examples/autobahn_client.rb
@@ -19,7 +18,7 @@ compile-driver () {
   cd -
 }
 
-# cd ~/repo/ruby/jruby-1.7/websocket
+# cd "$CODE_DIR/ruby/jruby-1.7/websocket"
 # chruby jruby-1.7
 # compile-driver
 # ruby -J-Xmx2048m --1.9 examples/autobahn_client.rb
@@ -37,7 +36,7 @@ done
 node-client () {
   local version="$1"
 
-  cd ~/repo/node/websocket
+  cd "$CODE_DIR/node/websocket"
   nvm use "$version"
   node examples/autobahn_client.js
 }
