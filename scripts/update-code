@@ -79,7 +79,7 @@ cd ~/repo/ruby
 RUBY_VERSIONS=(
   # ruby-1.9
   ruby-2.{1..7}
-  ruby-3.{0..3}
+  ruby-3.{0..4}
   # jruby-1.7
   jruby-9.{1..4}
 )

@@ -12,6 +12,7 @@
       { "agent": "websocket-driver node-v18",           "url": "ws://127.0.0.1:4008" },
       { "agent": "websocket-driver node-v20",           "url": "ws://127.0.0.1:4009" },
       { "agent": "websocket-driver node-v22",           "url": "ws://127.0.0.1:4010" },
+      { "agent": "websocket-driver node-v24",           "url": "ws://127.0.0.1:4011" },
 
       { "agent": "faye-websocket node-v4",              "url": "ws://127.0.0.1:5001" },
       { "agent": "faye-websocket node-v6",              "url": "ws://127.0.0.1:5002" },
@@ -23,6 +24,7 @@
       { "agent": "faye-websocket node-v18",             "url": "ws://127.0.0.1:5008" },
       { "agent": "faye-websocket node-v20",             "url": "ws://127.0.0.1:5009" },
       { "agent": "faye-websocket node-v22",             "url": "ws://127.0.0.1:5010" },
+      { "agent": "faye-websocket node-v24",             "url": "ws://127.0.0.1:5011" },
 
       { "agent": "websocket-driver ruby-2.1",           "url": "ws://127.0.0.1:6101" },
       { "agent": "websocket-driver ruby-2.2",           "url": "ws://127.0.0.1:6102" },
@@ -35,6 +37,7 @@
       { "agent": "websocket-driver ruby-3.1",           "url": "ws://127.0.0.1:6109" },
       { "agent": "websocket-driver ruby-3.2",           "url": "ws://127.0.0.1:6110" },
       { "agent": "websocket-driver ruby-3.3",           "url": "ws://127.0.0.1:6111" },
+      { "agent": "websocket-driver ruby-3.4",           "url": "ws://127.0.0.1:6112" },
       { "agent": "websocket-driver jruby-9.1",          "url": "ws://127.0.0.1:6203" },
       { "agent": "websocket-driver jruby-9.2",          "url": "ws://127.0.0.1:6204" },
       { "agent": "websocket-driver jruby-9.3",          "url": "ws://127.0.0.1:6205" },
@@ -51,6 +54,7 @@
       { "agent": "faye-websocket ruby-3.1 thin",        "url": "ws://127.0.0.1:7109" },
       { "agent": "faye-websocket ruby-3.2 thin",        "url": "ws://127.0.0.1:7110" },
       { "agent": "faye-websocket ruby-3.3 thin",        "url": "ws://127.0.0.1:7111" },
+      { "agent": "faye-websocket ruby-3.4 thin",        "url": "ws://127.0.0.1:7112" },
       { "agent": "faye-websocket ruby-3.1 goliath",     "url": "ws://127.0.0.1:7201" },
       { "agent": "faye-websocket ruby-3.1 passenger",   "url": "ws://127.0.0.1:7202" },
       { "agent": "faye-websocket ruby-3.2 puma",        "url": "ws://127.0.0.1:7203" },

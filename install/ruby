@@ -125,9 +125,10 @@ install-chruby "$CHRUBY_VERSION"
 install-openssl '1.0.2u' ~/src/openssl@1.0
 
 RUBY_VERSIONS=(
-  3.3.3
-  3.2.4
-  3.1.5
+  3.4.4
+  3.3.8
+  3.2.8
+  3.1.7
   3.0.7
   2.7.8
   2.6.10
@@ -155,8 +156,8 @@ for version in "${RUBY_VERSIONS[@]}" ; do
   install-ruby "$version" ~/src/openssl@1.0/usr/local/ssl
 done
 
-install-jruby 9.4.3.0
-install-jruby 9.3.10.0
+install-jruby 9.4.12.1
+install-jruby 9.3.15.0
 install-jruby 9.2.21.0 '< 2.4'
 install-jruby 9.1.17.0 '< 2.4'
 install-jruby 1.7.27 '< 2'

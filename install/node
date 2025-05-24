@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NVM_VERSION='v0.39.5'
-NODE_VERSIONS=(0.{8,10,12} $(seq 4 2 22))
+NODE_VERSIONS=(0.{8,10,12} $(seq 4 2 24))
 NVM_DIR=~/src/node
 
 BASHRC=~/.bash_aliases

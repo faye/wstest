@@ -22,6 +22,7 @@ websocket-driver-node-server  16    4007
 websocket-driver-node-server  18    4008
 websocket-driver-node-server  20    4009
 websocket-driver-node-server  22    4010
+websocket-driver-node-server  24    4011
 
 
 faye-websocket-node-server () {
@@ -43,3 +44,4 @@ faye-websocket-node-server  16    5007
 faye-websocket-node-server  18    5008
 faye-websocket-node-server  20    5009
 faye-websocket-node-server  22    5010
+faye-websocket-node-server  24    5011

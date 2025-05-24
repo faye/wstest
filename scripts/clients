@@ -29,7 +29,7 @@ for version in 9.{1..4} ; do
   ruby-client "jruby-$version"
 done
 
-for version in 2.{1..7} 3.{0..3} ; do
+for version in 2.{1..7} 3.{0..4} ; do
   ruby-client "ruby-$version"
 done
 
@@ -42,6 +42,6 @@ node-client () {
   node examples/autobahn_client.js
 }
 
-for version in $(seq 4 2 22) ; do
+for version in $(seq 4 2 24) ; do
   node-client "$version"
 done
