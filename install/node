@@ -20,15 +20,15 @@ git checkout "$NVM_VERSION"
 
 touch "$BASHRC"
 
-if [[ ! -f ~/.nvmrc ]] ; then
-  cat > ~/.nvmrc <<-EOF
+if [[ ! -f ~/src/.nvmrc ]] ; then
+  cat > ~/src/.nvmrc <<-EOF
     export NVM_DIR=$NVM_DIR
     source ~/src/nvm/nvm.sh
 EOF
-  echo 'source ~/.nvmrc' >> "$BASHRC"
+  echo 'source ~/src/.nvmrc' >> "$BASHRC"
 fi
 
-source ~/.nvmrc
+source ~/src/.nvmrc
 nvm alias default 'lts/*'
 
 for version in "${NODE_VERSIONS[@]}" ; do

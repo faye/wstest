@@ -47,13 +47,13 @@ install-chruby () {
 
   touch "$BASHRC"
 
-  if [[ ! -f ~/.rubyrc ]] ; then
-    cat > ~/.rubyrc <<-EOF
+  if [[ ! -f ~/src/.rubyrc ]] ; then
+    cat > ~/src/.rubyrc <<-EOF
       export SSL_CERT_DIR=/etc/ssl/certs
       source /usr/local/share/chruby/chruby.sh
       RUBIES+=(${RUBY_DIR}/*)
 EOF
-    echo 'source ~/.rubyrc' >> "$BASHRC"
+    echo 'source ~/src/.rubyrc' >> "$BASHRC"
   fi
 }
 

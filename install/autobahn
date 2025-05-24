@@ -4,7 +4,7 @@
 # have openssl versions that Python's cryptography package do not build
 # against, when using a version that will install on Python 2.7.
 
-VENV_PATH="$HOME/venv"
+VENV_PATH="$HOME/src/venv"
 BASHRC="$HOME/.bash_aliases"
 
 sudo apt-get update
@@ -26,5 +26,5 @@ fi
 touch "$BASHRC"
 
 if ! grep -q venv "$BASHRC" ; then
-  echo 'source ~/venv/bin/activate' >> "$BASHRC"
+  echo 'source ~/src/venv/bin/activate' >> "$BASHRC"
 fi
