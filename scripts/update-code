@@ -77,7 +77,7 @@ cd "$CODE_DIR/ruby"
 
 RUBY_VERSIONS=(
   # ruby-1.9
-  ruby-2.{1..7}
+  ruby-2.{3..7}
   ruby-3.{0..4}
   # jruby-1.7
   jruby-9.{1..4}

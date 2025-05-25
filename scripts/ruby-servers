@@ -20,8 +20,8 @@ websocket-driver-ruby-server () {
   ruby examples/em_server.rb "$port" &
 }
 
-websocket-driver-ruby-server  ruby-2.1  6101
-websocket-driver-ruby-server  ruby-2.2  6102
+# websocket-driver-ruby-server  ruby-2.1  6101
+# websocket-driver-ruby-server  ruby-2.2  6102
 websocket-driver-ruby-server  ruby-2.3  6103
 websocket-driver-ruby-server  ruby-2.4  6104
 websocket-driver-ruby-server  ruby-2.5  6105
@@ -56,8 +56,8 @@ faye-websocket-ruby-server () {
   ruby examples/server.rb "$port" '' "$server" &
 }
 
-faye-websocket-ruby-server  ruby-2.1  thin  7101
-faye-websocket-ruby-server  ruby-2.2  thin  7102
+# faye-websocket-ruby-server  ruby-2.1  thin  7101
+# faye-websocket-ruby-server  ruby-2.2  thin  7102
 faye-websocket-ruby-server  ruby-2.3  thin  7103
 faye-websocket-ruby-server  ruby-2.4  thin  7104
 faye-websocket-ruby-server  ruby-2.5  thin  7105
