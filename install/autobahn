@@ -1,11 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -eo pipefail
 
 # This install script has been tested on Ubuntu 20.04. More recent releases
 # have openssl versions that Python's cryptography package do not build
 # against, when using a version that will install on Python 2.7.
 
-VENV_PATH="$HOME/src/venv"
-BASHRC="$HOME/.bash_aliases"
+VENV_PATH=~/opt/venv
+BASHRC=~/.bash_aliases
 
 sudo apt-get update
 
@@ -18,7 +19,7 @@ sudo apt-get install -y \
 
 if [[ ! -d "$VENV_PATH" ]] ; then
   virtualenv --python 2 "$VENV_PATH"
-  source "${VENV_PATH}/bin/activate"
+  source "$VENV_PATH/bin/activate"
   pip install pipenv
   pipenv install
 fi
@@ -26,5 +27,5 @@ fi
 touch "$BASHRC"
 
 if ! grep -q venv "$BASHRC" ; then
-  echo 'source ~/src/venv/bin/activate' >> "$BASHRC"
+  echo "source $VENV_PATH/bin/activate" >> "$BASHRC"
 fi

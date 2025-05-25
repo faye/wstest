@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ~/src/.nvmrc
-source ~/src/.rubyrc
+source ~/opt/.nvmrc
+source ~/opt/.rubyrc
 
 CODE_DIR="$PWD/code"

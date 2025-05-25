@@ -1,16 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NVM_VERSION='v0.39.5'
 NODE_VERSIONS=(0.{8,10,12} $(seq 4 2 24))
-NVM_DIR=~/src/node
 
+NVM_DIR=~/opt/node
+RCFILE=~/opt/.nvmrc
 BASHRC=~/.bash_aliases
+ORIG_PWD="$PWD"
+
+if [[ $# -gt 0 ]] ; then
+  source "$RCFILE"
+  nvm install "$1"
+  exit
+fi
 
 sudo apt-get update
 sudo apt-get install -y build-essential
 
 mkdir -p "$NVM_DIR"
-cd ~/src
+cd ~/opt
 if [[ ! -d nvm ]] ; then
   git clone https://github.com/nvm-sh/nvm.git
 fi
@@ -20,17 +28,19 @@ git checkout "$NVM_VERSION"
 
 touch "$BASHRC"
 
-if [[ ! -f ~/src/.nvmrc ]] ; then
-  cat > ~/src/.nvmrc <<-EOF
+if [[ ! -f "$RCFILE" ]] ; then
+  cat > "$RCFILE" <<-EOF
     export NVM_DIR=$NVM_DIR
-    source ~/src/nvm/nvm.sh
+    source ~/opt/nvm/nvm.sh
 EOF
-  echo 'source ~/src/.nvmrc' >> "$BASHRC"
+  echo "source $RCFILE" >> "$BASHRC"
 fi
 
-source ~/src/.nvmrc
+source "$RCFILE"
 nvm alias default 'lts/*'
 
+cd "$ORIG_PWD"
+
 for version in "${NODE_VERSIONS[@]}" ; do
-  nvm install "$version"
+  ./install/node "$version"
 done
