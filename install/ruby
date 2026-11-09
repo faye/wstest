@@ -2,12 +2,13 @@
 set -eo pipefail
 
 CHRUBY_VERSION='0.3.9'
-RUBY_INSTALL_VERSION='0.9.1'
+RUBY_INSTALL_VERSION='0.10.2'
 
 RUBY_VERSIONS=(
-  3.4.4
-  3.3.8
-  3.2.8
+  4.0.9
+  3.4.12
+  3.3.13
+  3.2.11
   3.1.7
   3.0.7
   2.7.8
@@ -22,7 +23,7 @@ RUBY_VERSIONS=(
 )
 
 JRUBY_VERSIONS=(
-  9.4.12.1
+  9.4.15.0
   9.3.15.0
   9.2.21.0
   9.1.17.0
@@ -175,10 +176,11 @@ fi
 
 sudo apt-get update
 
-sudo apt-get install -y \
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
     libcurl4-openssl-dev \
-    libpcre3-dev
+    libpcre3-dev \
+    openjdk-8-jdk
 
 mkdir -p "$RUBY_DIR"
 

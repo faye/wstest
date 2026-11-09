@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-NVM_VERSION='v0.39.5'
-NODE_VERSIONS=(0.{8,10,12} $(seq 4 2 24))
+NVM_VERSION='v0.41.0'
+NODE_VERSIONS=(0.{8,10,12} $(seq 4 2 26))
 
 NVM_DIR=~/opt/node
 RCFILE=~/opt/.nvmrc

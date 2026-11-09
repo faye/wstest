@@ -32,6 +32,7 @@ websocket-driver-ruby-server  ruby-3.1  6109
 websocket-driver-ruby-server  ruby-3.2  6110
 websocket-driver-ruby-server  ruby-3.3  6111
 websocket-driver-ruby-server  ruby-3.4  6112
+websocket-driver-ruby-server  ruby-4.0  6113
 
 # cd "$CODE_DIR/ruby/jruby-1.7/driver"
 # chruby jruby-1.7
@@ -68,6 +69,7 @@ faye-websocket-ruby-server  ruby-3.1  thin  7109
 faye-websocket-ruby-server  ruby-3.2  thin  7110
 faye-websocket-ruby-server  ruby-3.3  thin  7111
 faye-websocket-ruby-server  ruby-3.4  thin  7112
+faye-websocket-ruby-server  ruby-4.0  thin  7113
 
 cd "$CODE_DIR/ruby/ruby-3.1/websocket"
 chruby ruby-3.1
